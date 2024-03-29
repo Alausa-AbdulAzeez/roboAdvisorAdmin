@@ -5,7 +5,7 @@ import OverviewCard from "./OverviewCard";
 
 const Overview = () => {
   return (
-    <div className="w-full">
+    <div className="w-full zoom">
       <div className="flex justify-between mb-[16px]">
         <div className="text-silverTextColor leading-[30px] text-[24px] font-[700]">
           Overview
@@ -18,17 +18,18 @@ const Overview = () => {
         <div className="w-[100%] h-[50%]  border-b-[0.05px] border-borderColor flex">
           <OverviewCard
             title={"Total Portfolio value"}
-            amount={"N300,810,565,830.11"}
+            amount={"N300,810,565.11"}
             time={"This Week"}
             img={sum}
             percentText={"+12.9%"}
             percentType={"positive"}
             imgPosition={"right"}
             absolutePosition={"bottom"}
+            index={1}
           />
           <OverviewCard
             title={"Total Portfolio value"}
-            amount={"N300,810,565,830.11"}
+            amount={"N300,810,565.11"}
             time={"This Week"}
             img={average}
             percentText={"-9.9%"}
@@ -40,7 +41,7 @@ const Overview = () => {
         <div className="w-[100%] h-[50%] flex">
           <OverviewCard
             title={"Total Portfolio value"}
-            amount={"N300,810,565,830.11"}
+            amount={"N300,810,565.11"}
             time={"This Week"}
             img={onCourse}
             percentText={"-9.9%"}
@@ -50,7 +51,7 @@ const Overview = () => {
           />
           <OverviewCard
             title={"Total Portfolio value"}
-            amount={"N300,810,565,830.11"}
+            amount={"N300,810,565.11"}
             time={"This Week"}
             img={offCourse}
             percentText={"+12.9%"}

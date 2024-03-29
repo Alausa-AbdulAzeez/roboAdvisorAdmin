@@ -12,7 +12,8 @@ body {
   font-family: "Lexend", sans-serif;
 }
 
-/* .zoom {
-  zoom: 0.8;
-} */
+.zoom {
+  /* transform: scale(0.8); */
+  /* zoom: 0.85; */
+}
 
