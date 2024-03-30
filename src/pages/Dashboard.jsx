@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import Overview from "../components/Overview";
 import TotalPortfolioValueAndRiskTolerance from "../components/TotalPortfolioValueAndRiskTolerance";
+import AssetClassPerformanceAndOtherDetails from "../components/AssetClassPerformanceAndOtherDetails";
 
 const Dashboard = () => {
   return (
@@ -13,6 +14,7 @@ const Dashboard = () => {
         <div className="w-full min-h-full bg-backgroundColor p-[32px] flex flex-col gap-[32px]">
           <Overview />
           <TotalPortfolioValueAndRiskTolerance />
+          <AssetClassPerformanceAndOtherDetails />
         </div>
       </div>
     </div>
