@@ -40,7 +40,7 @@ const AssetClassPerformanceAndOtherDetails = () => {
   ];
 
   return (
-    <div className="flex gap-[32px] w-full">
+    <div className="flex gap-[32px] max-2xl:gap-[25.6px] w-full">
       <AssetClassPerformance />
       <div className="flex-1 flex flex-col gap-[32px]">
         {moreDetails?.map((singleDetail) => {

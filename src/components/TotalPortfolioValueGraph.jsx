@@ -11,7 +11,7 @@ import {
 export const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-[#1E1E1E] w-[90px] h-[19px] rounded-[100px] py-[2px] px-[4px] flex items-center text-white justify-center font-[400] text-[14px]">
+      <div className="bg-[#1E1E1E] w-[90px] max-2xl:w-[72.6px] h-[19px] leading-none max-2xl:h-[15.2px]  rounded-[100px] max-2xl:rounded-[80px] py-[2px] px-[4px]  flex items-center text-white justify-center font-[400] text-[14px] max-2xl:text-[9.6px]">
         <p className="label">{`${label} : ${payload[0].value}`}</p>
       </div>
     );
