@@ -25,7 +25,7 @@ const Topbar = ({ title }) => {
           <img
             src={arrowDown}
             alt="arrowDonw"
-            className="max-2xl:h-[19.2px] max-2xl:w-[19.2px]"
+            className="max-2xl:h-[12.8px] max-2xl:w-[12.8px] text-blackTextColor"
           />
         </div>
       </div>

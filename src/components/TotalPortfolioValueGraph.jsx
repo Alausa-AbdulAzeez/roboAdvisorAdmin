@@ -36,15 +36,17 @@ const TotalPortfolioValueGraph = ({ data }) => {
         <XAxis
           dataKey="name"
           axisLine={false}
-          tick={{ stroke: "#1E1E1E", strokeWidth: 0.2 }}
+          tick={{ stroke: "#1E1E1E", strokeWidth: 0.3 }}
           tickLine={false}
+          className="text-[12px] max-2xl:text-[11px]"
         />
         <YAxis
           axisLine={false}
           dataKey="uv"
-          tick={{ stroke: "#1E1E1E", strokeWidth: 0.2 }}
+          tick={{ stroke: "#1E1E1E", strokeWidth: 0.3 }}
           tickLine={false}
           tickFormatter={(tick) => `${tick}m`}
+          className="text-[12px] max-2xl:text-[11px]"
         />
         <Tooltip content={<CustomTooltip />} cursor={{ fill: "#1E1E1E" }} />
         <Area

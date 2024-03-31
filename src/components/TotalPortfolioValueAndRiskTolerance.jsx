@@ -4,7 +4,7 @@ import RiskToleranceDistribution from "./RiskToleranceDistribution";
 
 const TotalPortfolioValueAndRiskTolerance = () => {
   return (
-    <div className="flex gap-[32px] w-full h-[518px]">
+    <div className="flex gap-[32px] max-2xl:gap-[25.6px] w-full h-[518px] max-2xl:h-[414.4px]">
       <TotalPortfolioValue />
       <RiskToleranceDistribution />
     </div>

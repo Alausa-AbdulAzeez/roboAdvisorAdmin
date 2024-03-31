@@ -99,11 +99,11 @@ const Sidebar = () => {
         ))}
         <div className="w-full h-[60px] max-2xl:h-[48px] flex items-center gap-[21px] max-2xl:gap-[16.8px]">
           <InactiveSidebarBorder />
-          <div className="flex w-full justify-between">
-            <div className="flex gap-[8px] max-2xl:gap[6.4px]">
+          <div className="flex w-full justify-between items-center">
+            <div className="flex gap-[8px] max-2xl:gap[6.4px] items-center">
               <Icon
                 icon="icon-park-solid:activity-source"
-                className={`w-[24px] max-2xl:w-[19.2px] h-[24px] max-2xl:h-[19.2px]`}
+                className={`w-[24px] max-2xl:w-[19.2px] h-[24px] max-2xl:h-[19.2px] text-blackTextColor`}
               />
 
               <div
@@ -112,7 +112,11 @@ const Sidebar = () => {
                 Activity Log
               </div>
             </div>
-            <img src={arrowDown} alt="arrowDown" className="mr-[32px]" />
+            <img
+              src={arrowDown}
+              alt="arrowDown"
+              className="mr-[32px] max-2xl:mr-[25.6px] max-2xl:h-[12.8px] max-2xl:w-[12.8px]"
+            />
           </div>
         </div>
       </div>
