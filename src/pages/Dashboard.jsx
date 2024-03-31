@@ -11,7 +11,7 @@ const Dashboard = () => {
       <Sidebar />
       <div className="flex-1 h-full overflow-auto relative">
         <Topbar title={"Dashboard"} />
-        <div className="w-full min-h-full bg-backgroundColor p-[32px] flex flex-col gap-[32px]">
+        <div className="w-full min-h-full bg-backgroundColor p-[32px] max-2xl:p-[25.6px] flex flex-col gap-[32px] max-2xl:gap-[25.6px]">
           <Overview />
           <TotalPortfolioValueAndRiskTolerance />
           <AssetClassPerformanceAndOtherDetails />
