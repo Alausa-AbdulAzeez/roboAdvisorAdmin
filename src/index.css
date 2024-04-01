@@ -12,8 +12,28 @@ body {
   font-family: "Lexend", sans-serif;
 }
 
-.zoom {
-  /* transform: scale(0.8); */
-  /* zoom: 0.85; */
+@layer utilities {
+  .content-auto {
+    content-visibility: auto;
+  }
+
+  .zoomMaxXl {
+    zoom: 0.75;
+  }
+  .zoomMax850 {
+    zoom: 0.7;
+  }
+  .zoomMaxMd {
+    zoom: 0.6;
+  }
+  .zoomMaxSm {
+    zoom: 0.4;
+  }
+  .zoomMax300 {
+    zoom: 0.2;
+  }
+  .zoomMax400 {
+    zoom: 0.3;
+  }
 }
 

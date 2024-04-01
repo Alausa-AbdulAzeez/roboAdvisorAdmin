@@ -5,7 +5,7 @@ import OverviewCard from "./OverviewCard";
 
 const Overview = () => {
   return (
-    <div className="w-full zoom">
+    <div className="w-full">
       <div className="flex justify-between mb-[16px] max-2xl:mb-[12.8px]">
         <div className="text-silverTextColor leading-[30px] max-2xl:leading-[24px] text-[24px] max-2xl:text-[19.2px] font-[700]">
           Overview
