@@ -3,7 +3,7 @@ import { accountIcon, arrowDown, bellIcon } from "../assets/icons";
 
 const Topbar = ({ title }) => {
   return (
-    <div className="max-[300px]:zoomMax300 max-[400px]:zoomMax400 max-sm:zoomMaxSm max-md:zoomMaxMd max-[850px]:zoomMax850 max-xl:zoomMaxXl  z-[2]  h-[76px] px-[32px] max-2xl:h-[60.8px] max-2xl:px-[25.6px]   w-full border border-[#D4D4D4] bg-white flex items-center justify-between sticky top-0">
+    <div className="max-[300px]:zoomMax300 max-[400px]:zoomMax400 max-sm:zoomMaxSm max-md:zoomMaxMd max-[850px]:zoomMax850 max-xl:zoomMaxXl  z-[2]  h-[76px] px-[32px] max-2xl:h-[60.8px] max-2xl:px-[25.6px]   w-full border border-l-0 border-[#D4D4D4] bg-white flex items-center justify-between sticky top-0">
       <div className="text-blackTextColor text-[32px] leading-[40px] max-2xl:text-[25.6px]  max-2xl:leading-[32px] font-[700]">
         {title}
       </div>

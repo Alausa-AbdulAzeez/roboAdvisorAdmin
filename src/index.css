@@ -35,5 +35,15 @@ body {
   .zoomMax400 {
     zoom: 0.3;
   }
+  .activePage {
+    width: 24px;
+    height: 20px;
+    background: #005ae0;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
 }
 
