@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { arrowDown } from "../assets/icons";
 import ReactPaginate from "react-paginate";
 import {
@@ -12,6 +12,7 @@ const GeneralTable = ({ tableHeaders, title, items }) => {
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
 
+  //   Number of items displayed on the table
   const itemsPerPage = 10;
 
   // Simulate fetching items from another resources.
@@ -22,6 +23,35 @@ const GeneralTable = ({ tableHeaders, title, items }) => {
   const currentItems = items.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(items.length / itemsPerPage);
 
+  //   Ref linked to the pop up element
+  const popupRef = useRef(null);
+
+  //   Index of the row clicked
+  const [rowIndex, setRowIndex] = useState(null);
+
+  /**
+   * State to control the visibility of the popup for each row.
+   * @type {Array<boolean>}
+   */
+  const [showPopup, setShowPopup] = useState(
+    Array(currentItems.length).fill(false)
+  );
+
+  /**
+   * Toggles the visibility of the popup for a specific row.
+   * @param {number} index - The index of the row.
+   */
+  const togglePopup = (index) => {
+    // Create a copy of the showPopup state array and initialize all elements to false
+    const updatedShowPopup = Array(currentItems.length).fill(false);
+
+    // Set the value of the clicked row to the opposite of its current value
+    updatedShowPopup[index] = !updatedShowPopup[index];
+
+    // Update the showPopup state with the modified array
+    setShowPopup(updatedShowPopup);
+  };
+
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % items.length;
@@ -29,6 +59,53 @@ const GeneralTable = ({ tableHeaders, title, items }) => {
       `User requested page number ${event.selected}, which is offset ${newOffset}`
     );
     setItemOffset(newOffset);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (event.target.classList.contains("popup")) {
+        togglePopup(rowIndex);
+      } else {
+        // Check if the click target is outside of the popup
+        if (popupRef.current && !popupRef.current.contains(event.target)) {
+          setShowPopup(Array(currentItems.length).fill(false));
+        }
+      }
+    };
+
+    // Add event listener to handle clicks outside of the popup
+    document.addEventListener("click", handleClickOutside);
+
+    // Cleanup: Remove event listener when component unmounts
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [rowIndex]);
+
+  //   useEffect(() => {
+  //     const handleClickOutside = (event) => {
+  //       // Check if the click target is outside of the popup
+  //       const isClickOutsidePopup = !event.target.closest(".popup");
+
+  //       // Close the popup if the click is outside of the popup
+  //       if (isClickOutsidePopup) {
+  //         console.log("outside pop up");
+  //         setShowPopup(Array(currentItems.length).fill(false));
+  //       }
+  //     };
+
+  //     // Add event listener to handle clicks outside of the popup
+  //     document.body.addEventListener("click", handleClickOutside);
+
+  //     // Cleanup: Remove event listener when component unmounts
+  //     return () => {
+  //       document.body.removeEventListener("click", handleClickOutside);
+  //     };
+  //   }, []);
+
+  //   Function to set row index
+  const handleSetRowIndex = (index) => {
+    setRowIndex(index);
   };
 
   return (
@@ -102,7 +179,7 @@ const GeneralTable = ({ tableHeaders, title, items }) => {
           })}
         </tr>
         {currentItems &&
-          currentItems.map((item) => (
+          currentItems.map((item, index) => (
             <tr>
               <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor">
                 John Doe
@@ -126,11 +203,26 @@ const GeneralTable = ({ tableHeaders, title, items }) => {
                   <TableInActiveStatusIndicator />
                 )}
               </td>
-              <td className=" ">
+              <td className="relative">
                 <Icon
+                  // Anytime this is clicked, show the pop-up beside it
                   icon="uiw:more"
-                  className={` text-right ml-auto w-[16px] max-2xl:w-[12.8px] h-[16px] max-2xl:h-[12.8px] text-[#161616] cursor-pointer`}
+                  className={`popup text-right ml-auto w-[16px] max-2xl:w-[12.8px] h-[16px] max-2xl:h-[12.8px] text-[#161616] cursor-pointer`}
+                  onClick={() => handleSetRowIndex(index)}
                 />
+                {showPopup[index] && (
+                  <div
+                    ref={popupRef}
+                    className="z-[2] flex flex-col absolute top-0 right-[0px] bg-[#F8F8F8]  shadow-md w-[192px] h-[88px] rounded-[8px] max-2xl:w-[153.6px] max-2xl:h-[70.4px]  "
+                  >
+                    <div className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-tr-[8px] rounded-tl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-tr-[8px] max-2xl:rounded-tl-[8px]">
+                      View Details
+                    </div>
+                    <div className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-br-[8px] rounded-bl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-br-[8px] max-2xl:rounded-bl-[8px]">
+                      Reactivate User
+                    </div>
+                  </div>
+                )}
               </td>
             </tr>
           ))}
