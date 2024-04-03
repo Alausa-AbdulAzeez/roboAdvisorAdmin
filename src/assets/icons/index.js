@@ -18,9 +18,11 @@ import offCourse from "./offCourse.svg";
 import aggregateSharpeRatio from "./aggregateSharpeRatio.svg";
 import numberOfActiveUsers from "./numberOfActiveUsers.svg";
 import totalTransactions from "./totalTransactions.svg";
+import verified from "./verified.svg";
 
 export {
   sum,
+  verified,
   aggregateSharpeRatio,
   numberOfActiveUsers,
   totalTransactions,

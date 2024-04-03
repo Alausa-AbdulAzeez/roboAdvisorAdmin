@@ -11,6 +11,7 @@ export default {
         silverTextColor: "#1E1E1E99",
         textGreenColor: "#00E09D",
         backgroundGreenColor: "#00E09D1A",
+        backgroundBlueColor: "#005AE01A",
         textRedColor: "#E04300",
         backgroundRedColor: "#E043001A",
         silverTextColor: "#1E1E1E99",
