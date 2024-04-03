@@ -3,7 +3,7 @@ import React from "react";
 import { profilePicture } from "../assets/images";
 import { verified } from "../assets/icons";
 
-const UserDetailsModal = () => {
+const UserDetailsModal = ({ onClose, selectedUser }) => {
   return (
     <div className="w-[500px] min-h-[500px]  h-[90%] max-h-[700px] bg-white z-[100] overflow-auto rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] flex flex-col gap-[24px] max-2xl:gap-[19.2px]">
       <div className="flex justify-between">
@@ -11,6 +11,7 @@ const UserDetailsModal = () => {
           Export CSV
         </div>
         <Icon
+          onClick={onClose}
           icon="ic:round-close"
           className={`w-[16px] cursor-pointer max-2xl:w-[12.8px] h-[16px] max-2xl:h-[12.8px] text-blackTextColor`}
         />
@@ -19,11 +20,18 @@ const UserDetailsModal = () => {
         <div className="text-[20px] max-2xl:text-[16px] font-[600] leading-[28px] max-2xl:leading-[22.4px] text-blackTextColor ">
           User Details
         </div>
-        <div className="flex items-center justify-center text-silverTextColor text-[16px] max-2xl:text-[12.8px] font-[400] border border-borderColor w-[120px] h-[36px] rounded-[200px] max-2xl:w-[96px] max-2xl:h-[28.8px]">
-          User ID: 2268
+        <div className="flex items-center justify-center text-silverTextColor text-[16px] max-2xl:text-[12.8px] font-[400] border border-borderColor min-w-[120px] h-[36px] rounded-[200px] max-2xl:min-w-[96px] max-2xl:h-[28.8px]">
+          User ID: {selectedUser?.location?.postalCode?.slice(0, 4)}
         </div>
-        <div className="text-textGreenColor text-[16px] font-normal max-2xl:text-[12.8px]">
-          Active
+        <div
+          className={`${
+            selectedUser?.status === "inactive" && "text-textRedColor"
+          } ${
+            selectedUser?.status === "active" && "text-textGreenColor"
+          } text-[16px] font-normal max-2xl:text-[12.8px]`}
+        >
+          {selectedUser?.status === "inactive" && "Deactivated"}
+          {selectedUser?.status === "active" && "Active"}
         </div>
       </div>
       <div className="border border-[#d4d4d457] w-full"></div>
@@ -38,7 +46,7 @@ const UserDetailsModal = () => {
         <div className="my-[6.5px]  flex flex-col justify-between max-2xl:my-[5.2px]">
           <div className="flex gap-[8px] items-center">
             <div className="text-[18px] font-semibold text-blackTextColor max-2xl:text-[14.4px]">
-              John Doe
+              {selectedUser?.firstname} {selectedUser?.lastname}
             </div>
             <img
               src={verified}
@@ -47,11 +55,12 @@ const UserDetailsModal = () => {
             />
           </div>
           <div className="text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
-            Abuja, <span>Nigeria</span>
+            {selectedUser?.location?.state},{" "}
+            <span>{selectedUser?.location?.country}</span>
           </div>
 
           <div className="text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
-            Tier A
+            {selectedUser?.tier}
           </div>
         </div>
       </div>
@@ -65,7 +74,7 @@ const UserDetailsModal = () => {
               Total Portfolio Value
             </div>
             <div className="text-[16px] max-2xl:text-[12.8px] font-[600] text-mainBlue leading-[28px] max-2xl:leading-[22.4px]">
-              30,051,663.00
+              {selectedUser?.totalPortfolioValue}
             </div>
           </div>
           <div className="flex flex-col gap-[4px] w-[40%]">
@@ -73,14 +82,21 @@ const UserDetailsModal = () => {
               RISK PROFILE
             </div>
             <div className="text-[16px] max-2xl:text-[12.8px] font-[600] text-mainBlue leading-[28px] max-2xl:leading-[22.4px]">
-              Conservative
+              {selectedUser?.riskProfile}
             </div>
           </div>
         </div>
         <div className="flex">
-          <div className="px-[16px] rounded-[8px] text-white py-[8px] text-[16px] bg-mainBlue leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]">
-            View Portfolio
-          </div>
+          {selectedUser?.status === "active" && (
+            <div className="px-[16px] rounded-[8px] text-white py-[8px] text-[16px] bg-mainBlue leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]">
+              View Portfolio
+            </div>
+          )}
+          {selectedUser?.status === "inactive" && (
+            <div className="px-[16px] rounded-[8px] text-blackTextColor py-[8px] text-[16px] bg-borderColor leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]">
+              View Portfolio
+            </div>
+          )}
         </div>
       </div>
       <div className="bg-[#f8f8f8] p-[16px] flex flex-col gap-[24px] rounded-[8px] max-2xl:rounded-[6.4px] max-2xl:gap-[19.2px]">
@@ -93,7 +109,7 @@ const UserDetailsModal = () => {
               FIRST NAME
             </div>
             <div className="text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor leading-[28px] max-2xl:leading-[22.4px]">
-              John
+              {selectedUser?.firstname}
             </div>
           </div>
           <div className="flex flex-col gap-[4px] w-[40%]">
@@ -101,7 +117,7 @@ const UserDetailsModal = () => {
               Last name
             </div>
             <div className="text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor leading-[28px] max-2xl:leading-[22.4px]">
-              Doe
+              {selectedUser?.lastname}
             </div>
           </div>
         </div>
@@ -111,7 +127,7 @@ const UserDetailsModal = () => {
               EMAIL ADDRESS
             </div>
             <div className="text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor leading-[28px] max-2xl:leading-[22.4px]">
-              Johndoe@gmail.com
+              {selectedUser?.email}
             </div>
           </div>
           <div className="flex flex-col gap-[4px] w-[40%] ">
@@ -119,7 +135,7 @@ const UserDetailsModal = () => {
               Phone number
             </div>
             <div className="text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor leading-[28px] max-2xl:leading-[22.4px]">
-              08122336595
+              {selectedUser?.phone}
             </div>
           </div>
         </div>
@@ -129,7 +145,7 @@ const UserDetailsModal = () => {
               Date of birth
             </div>
             <div className="text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor leading-[28px] max-2xl:leading-[22.4px]">
-              01 October, 1999
+              {selectedUser?.dateOfBirth}
             </div>
           </div>
         </div>
@@ -144,7 +160,7 @@ const UserDetailsModal = () => {
               Country
             </div>
             <div className="text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor leading-[28px] max-2xl:leading-[22.4px]">
-              Nigeria
+              {selectedUser?.location?.country}
             </div>
           </div>
           <div className="flex flex-col gap-[4px] w-[40%]">
@@ -152,7 +168,7 @@ const UserDetailsModal = () => {
               City/State
             </div>
             <div className="text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor leading-[28px] max-2xl:leading-[22.4px]">
-              Abuja
+              {selectedUser?.location?.state}
             </div>
           </div>
         </div>
@@ -162,7 +178,7 @@ const UserDetailsModal = () => {
               Postal code
             </div>
             <div className="text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor leading-[28px] max-2xl:leading-[22.4px]">
-              900107
+              {selectedUser?.location?.postalCode}
             </div>
           </div>
           <div className="flex flex-col gap-[4px] w-[40%] ">
@@ -170,15 +186,22 @@ const UserDetailsModal = () => {
               Street
             </div>
             <div className="text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor leading-[28px] max-2xl:leading-[22.4px]">
-              Alhaji Str.
+              {selectedUser?.location?.street}
             </div>
           </div>
         </div>
       </div>
       <div className="flex justify-end">
-        <div className="px-[16px] rounded-[8px] text-white py-[8px] text-[16px] bg-textRedColor leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]">
-          Deactivate user
-        </div>
+        {selectedUser?.status === "active" && (
+          <div className="px-[16px] rounded-[8px] text-white font-bold py-[8px] text-[16px] bg-textRedColor leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]">
+            Deactivate user
+          </div>
+        )}
+        {selectedUser?.status === "inactive" && (
+          <div className="px-[16px] rounded-[8px] font-bold py-[8px] text-[16px] bg-[#EEEEEE] text-blackTextColor leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]">
+            Reactivate user
+          </div>
+        )}
       </div>
     </div>
   );

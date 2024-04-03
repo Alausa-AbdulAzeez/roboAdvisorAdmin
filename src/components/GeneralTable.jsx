@@ -28,6 +28,9 @@ const GeneralTable = ({ tableHeaders, title, items }) => {
   //   Ref linked to the pop up element
   const popupRef = useRef(null);
 
+  //   Selected user
+  const [selectedUser, setSelectedUser] = useState(null);
+
   //   Index of the row clicked
   const [rowIndex, setRowIndex] = useState(null);
 
@@ -106,7 +109,8 @@ const GeneralTable = ({ tableHeaders, title, items }) => {
   //   }, []);
 
   //   Function to set row index
-  const handleSetRowIndex = (index) => {
+  const handleSetRowIndexAndUser = (index, user) => {
+    setSelectedUser(user);
     setRowIndex(index);
   };
 
@@ -119,9 +123,8 @@ const GeneralTable = ({ tableHeaders, title, items }) => {
   return (
     <>
       <div>
-        <button onClick={() => setIsOpen(true)}>Open Overlay</button>
         <Overlay isOpen={isOpen} onClose={handleClose}>
-          <UserDetailsModal />
+          <UserDetailsModal onClose={handleClose} selectedUser={selectedUser} />
         </Overlay>
       </div>
       <div className="w-[100%] flex flex-col bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] h-fit overflow-auto">
@@ -194,53 +197,65 @@ const GeneralTable = ({ tableHeaders, title, items }) => {
             })}
           </tr>
           {currentItems &&
-            currentItems.map((item, index) => (
-              <tr>
-                <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor">
-                  John Doe
-                </td>
-                <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
-                  2268
-                </td>
-                <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor">
-                  johndoe@gmail.com
-                </td>
-                <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
-                  1hr ago
-                </td>
-                <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
-                  30/01/2024
-                </td>
-                <td>
-                  {item === 1 || item === 3 || item === 9 ? (
-                    <TableActiveStatusIndicator />
-                  ) : (
-                    <TableInActiveStatusIndicator />
-                  )}
-                </td>
-                <td className="relative">
-                  <Icon
-                    // Anytime this is clicked, show the pop-up beside it
-                    icon="uiw:more"
-                    className={`popup text-right ml-auto w-[16px] max-2xl:w-[12.8px] h-[16px] max-2xl:h-[12.8px] text-[#161616] cursor-pointer`}
-                    onClick={() => handleSetRowIndex(index)}
-                  />
-                  {showPopup[index] && (
-                    <div
-                      ref={popupRef}
-                      className="z-[2] flex flex-col absolute top-0 right-[0px] bg-[#F8F8F8]  shadow-md w-[192px] h-[88px] rounded-[8px] max-2xl:w-[153.6px] max-2xl:h-[70.4px]  "
-                    >
-                      <div className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-tr-[8px] rounded-tl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-tr-[8px] max-2xl:rounded-tl-[8px]">
-                        View Details
+            currentItems.map((item, index) => {
+              const { firstname, lastname, email, location, status } = item;
+
+              return (
+                <tr>
+                  <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor">
+                    {firstname} {lastname}
+                  </td>
+                  <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
+                    {location?.postalCode?.slice(0, 4)}
+                  </td>
+                  <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor">
+                    {email}
+                  </td>
+                  <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
+                    1hr ago
+                  </td>
+                  <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
+                    30/01/2024
+                  </td>
+                  <td>
+                    {status === "active" ? (
+                      <TableActiveStatusIndicator />
+                    ) : (
+                      <TableInActiveStatusIndicator />
+                    )}
+                  </td>
+                  <td className="relative">
+                    <Icon
+                      // Anytime this is clicked, show the pop-up beside it
+                      icon="uiw:more"
+                      className={`popup text-right ml-auto w-[16px] max-2xl:w-[12.8px] h-[16px] max-2xl:h-[12.8px] text-[#161616] cursor-pointer`}
+                      onClick={() => handleSetRowIndexAndUser(index, item)}
+                    />
+                    {showPopup[index] && (
+                      <div
+                        ref={popupRef}
+                        className="z-[2] flex flex-col absolute top-0 right-[0px] bg-[#F8F8F8]  shadow-md w-[192px] h-[88px] rounded-[8px] max-2xl:w-[153.6px] max-2xl:h-[70.4px]  "
+                      >
+                        <div
+                          className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-tr-[8px] rounded-tl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-tr-[8px] max-2xl:rounded-tl-[8px]"
+                          onClick={() => setIsOpen(true)}
+                        >
+                          View Details
+                        </div>
+                        <div className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-br-[8px] rounded-bl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-br-[8px] max-2xl:rounded-bl-[8px]">
+                          {selectedUser &&
+                            selectedUser?.status === "active" &&
+                            "Deactivate User"}
+                          {selectedUser &&
+                            selectedUser?.status === "inactive" &&
+                            "Reactivate User"}
+                        </div>
                       </div>
-                      <div className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-br-[8px] rounded-bl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-br-[8px] max-2xl:rounded-bl-[8px]">
-                        Reactivate User
-                      </div>
-                    </div>
-                  )}
-                </td>
-              </tr>
-            ))}
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
         </table>
       </div>
     </>
