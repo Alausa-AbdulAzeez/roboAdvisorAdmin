@@ -8,6 +8,7 @@ import {
 } from "./TableStatusIndicator";
 import Overlay from "./Overlay";
 import UserDetailsModal from "./UserDetailsModal";
+import UserModificationConfirmation from "./UserModificationConfirmation";
 
 const GeneralTable = ({ tableHeaders, title, items }) => {
   // Here we use item offsets; we could also use page offsets
@@ -33,6 +34,12 @@ const GeneralTable = ({ tableHeaders, title, items }) => {
 
   //   Index of the row clicked
   const [rowIndex, setRowIndex] = useState(null);
+
+  // State of User details modal
+  const [isOpen, setIsOpen] = useState(false);
+
+  // State for user modification modal visibility
+  const [isModificationModalOpen, setisModificationModalOpen] = useState(false);
 
   /**
    * State to control the visibility of the popup for each row.
@@ -66,6 +73,25 @@ const GeneralTable = ({ tableHeaders, title, items }) => {
     setItemOffset(newOffset);
   };
 
+  // Function to set row index and selected user to the last clicked row
+  const handleSetRowIndexAndUser = (index, user) => {
+    setSelectedUser(user);
+    setRowIndex(index);
+  };
+  // End of function to set row index and selected user to the last clicked row
+
+  // Function to close user details modal
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+  // End of function to close user details modal
+
+  //   Function to close user modification modal
+  const handleCloseUserModificationModal = () => {
+    setisModificationModalOpen(false);
+  };
+  //   End of function to close user modification modal
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (event.target.classList.contains("popup")) {
@@ -87,46 +113,20 @@ const GeneralTable = ({ tableHeaders, title, items }) => {
     };
   }, [rowIndex]);
 
-  //   useEffect(() => {
-  //     const handleClickOutside = (event) => {
-  //       // Check if the click target is outside of the popup
-  //       const isClickOutsidePopup = !event.target.closest(".popup");
-
-  //       // Close the popup if the click is outside of the popup
-  //       if (isClickOutsidePopup) {
-  //         console.log("outside pop up");
-  //         setShowPopup(Array(currentItems.length).fill(false));
-  //       }
-  //     };
-
-  //     // Add event listener to handle clicks outside of the popup
-  //     document.body.addEventListener("click", handleClickOutside);
-
-  //     // Cleanup: Remove event listener when component unmounts
-  //     return () => {
-  //       document.body.removeEventListener("click", handleClickOutside);
-  //     };
-  //   }, []);
-
-  //   Function to set row index
-  const handleSetRowIndexAndUser = (index, user) => {
-    setSelectedUser(user);
-    setRowIndex(index);
-  };
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
   return (
     <>
-      <div>
-        <Overlay isOpen={isOpen} onClose={handleClose}>
-          <UserDetailsModal onClose={handleClose} selectedUser={selectedUser} />
-        </Overlay>
-      </div>
+      <Overlay isOpen={isOpen} onClose={handleClose}>
+        <UserDetailsModal onClose={handleClose} selectedUser={selectedUser} />
+      </Overlay>
+      <Overlay
+        isOpen={isModificationModalOpen}
+        onClose={handleCloseUserModificationModal}
+      >
+        <UserModificationConfirmation
+          onClose={handleCloseUserModificationModal}
+          selectedUser={selectedUser}
+        />
+      </Overlay>
       <div className="w-[100%] flex flex-col bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] h-fit overflow-auto">
         <div className="flex justify-between ">
           {/* <div className="flex justify-between h-[36px] max-2xl:h-[28.8px] "> */}
@@ -242,7 +242,10 @@ const GeneralTable = ({ tableHeaders, title, items }) => {
                         >
                           View Details
                         </div>
-                        <div className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-br-[8px] rounded-bl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-br-[8px] max-2xl:rounded-bl-[8px]">
+                        <div
+                          className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-br-[8px] rounded-bl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-br-[8px] max-2xl:rounded-bl-[8px]"
+                          onClick={() => setisModificationModalOpen(true)}
+                        >
                           {selectedUser &&
                             selectedUser?.status === "active" &&
                             "Deactivate User"}

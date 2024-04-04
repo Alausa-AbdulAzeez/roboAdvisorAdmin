@@ -1,11 +1,28 @@
 import { Icon } from "@iconify/react";
-import React from "react";
+import React, { useState } from "react";
 import { profilePicture } from "../assets/images";
 import { verified } from "../assets/icons";
+import Overlay from "./Overlay";
+import UserModificationConfirmation from "./UserModificationConfirmation";
 
 const UserDetailsModal = ({ onClose, selectedUser }) => {
+  // State for user details modal visibility
+  const [isOpen, setIsOpen] = useState(false);
+
+  //   Function to close user modal
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+  //   End of function to close user modal
+
   return (
     <div className="w-[500px] min-h-[500px]  h-[90%] max-h-[700px] bg-white z-[100] overflow-auto rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] flex flex-col gap-[24px] max-2xl:gap-[19.2px]">
+      <Overlay isOpen={isOpen} onClose={handleClose}>
+        <UserModificationConfirmation
+          onClose={handleClose}
+          selectedUser={selectedUser}
+        />
+      </Overlay>
       <div className="flex justify-between">
         <div className="text-mainBlue leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[700] cursor-pointer hover:underline">
           Export CSV
@@ -88,12 +105,12 @@ const UserDetailsModal = ({ onClose, selectedUser }) => {
         </div>
         <div className="flex">
           {selectedUser?.status === "active" && (
-            <div className="px-[16px] rounded-[8px] text-white py-[8px] text-[16px] bg-mainBlue leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]">
+            <div className="px-[16px] rounded-[8px] font-bold text-white py-[8px] text-[16px] bg-mainBlue leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]">
               View Portfolio
             </div>
           )}
           {selectedUser?.status === "inactive" && (
-            <div className="px-[16px] rounded-[8px] text-blackTextColor py-[8px] text-[16px] bg-borderColor leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]">
+            <div className="px-[16px] rounded-[8px] font-bold text-blackTextColor py-[8px] text-[16px] bg-borderColor leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]">
               View Portfolio
             </div>
           )}
@@ -193,12 +210,18 @@ const UserDetailsModal = ({ onClose, selectedUser }) => {
       </div>
       <div className="flex justify-end">
         {selectedUser?.status === "active" && (
-          <div className="px-[16px] rounded-[8px] text-white font-bold py-[8px] text-[16px] bg-textRedColor leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]">
+          <div
+            className="px-[16px] rounded-[8px] text-white font-bold py-[8px] text-[16px] bg-textRedColor leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]"
+            onClick={() => setIsOpen(true)}
+          >
             Deactivate user
           </div>
         )}
         {selectedUser?.status === "inactive" && (
-          <div className="px-[16px] rounded-[8px] font-bold py-[8px] text-[16px] bg-[#EEEEEE] text-blackTextColor leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]">
+          <div
+            className="px-[16px] rounded-[8px] font-bold py-[8px] text-[16px] bg-[#EEEEEE] text-blackTextColor leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]"
+            onClick={() => setIsOpen(true)}
+          >
             Reactivate user
           </div>
         )}
