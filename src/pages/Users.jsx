@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import GeneralTable from "../components/GeneralTable";
+import UserPortfolio from "../components/UserPortfolio";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Users = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const queryParams = new URLSearchParams(location.search);
+  // let uiToBeDisplayed = queryParams.get("uiToBeDisplayed");
+
+  // State that handles UI to be displayed
+  const [uiToBeDisplayed, setUiToBeDisplayed] = useState(
+    queryParams.get("uiToBeDisplayed")
+  );
+
   // DUMMY DATA FOR TABLE HEADERS
   const tableHeaders = [
     "Username",
@@ -1127,17 +1139,61 @@ const Users = () => {
     },
   ];
 
+  // Function that handles the UI to be displayed
+  const handleUiToBeDisplayed = (requestedUi) => {
+    setUiToBeDisplayed(requestedUi);
+    // uiToBeDisplayed = requestedUi;
+  };
+  // End of function that handles the UI to be displayed
+
+  // Function to render certain component based on current page the user requests
+  const renderPageUi = () => {
+    switch (uiToBeDisplayed) {
+      case "userList":
+        return (
+          <GeneralTable
+            tableHeaders={tableHeaders}
+            title={title}
+            items={items}
+            handleUiToBeDisplayed={handleUiToBeDisplayed}
+          />
+        );
+      case "userPortfolio":
+        return (
+          <UserPortfolio
+            tableHeaders={tableHeaders}
+            title={title}
+            items={items}
+            handleUiToBeDisplayed={handleUiToBeDisplayed}
+          />
+        );
+
+      default:
+        return (
+          <GeneralTable
+            tableHeaders={tableHeaders}
+            title={title}
+            items={items}
+            handleUiToBeDisplayed={handleUiToBeDisplayed}
+          />
+        );
+    }
+  };
+
+  useEffect(() => {
+    console.log(uiToBeDisplayed);
+    // Update URL query parameter when UI state changes
+    navigate(`?uiToBeDisplayed=${uiToBeDisplayed}`, { replace: true });
+  }, [uiToBeDisplayed, navigate]);
+
   return (
     <div className="h-[100vh] flex bg-backgroundColor ">
       <Sidebar />
       <div className="flex-1 h-full overflow-auto relative">
         <Topbar title={"Users"} />
-        <div className="w-full  min-h-full h-auto mb-[50px] bg-backgroundColor p-[32px] max-2xl:p-[25.6px] flex flex-col gap-[32px] max-2xl:gap-[25.6px] max-[300px]:zoomMax300 max-[400px]:zoomMax400 max-sm:zoomMaxSm max-md:zoomMaxMd max-[850px]:zoomMax850 max-xl:zoomMaxXl ">
-          <GeneralTable
-            tableHeaders={tableHeaders}
-            title={title}
-            items={items}
-          />
+        <div className="w-full  min-h-full h-auto mb-[50px] bg-backgroundColor flex flex-col gap-[32px] max-2xl:gap-[25.6px] max-[300px]:zoomMax300 max-[400px]:zoomMax400 max-sm:zoomMaxSm max-md:zoomMaxMd max-[850px]:zoomMax850 max-xl:zoomMaxXl ">
+          {/* <div className="w-full  min-h-full h-auto mb-[50px] bg-backgroundColor p-[32px] max-2xl:p-[25.6px] flex flex-col gap-[32px] max-2xl:gap-[25.6px] max-[300px]:zoomMax300 max-[400px]:zoomMax400 max-sm:zoomMaxSm max-md:zoomMaxMd max-[850px]:zoomMax850 max-xl:zoomMaxXl "> */}
+          {renderPageUi()}
         </div>
       </div>
     </div>

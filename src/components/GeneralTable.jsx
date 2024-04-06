@@ -10,7 +10,12 @@ import Overlay from "./Overlay";
 import UserDetailsModal from "./UserDetailsModal";
 import UserModificationConfirmation from "./UserModificationConfirmation";
 
-const GeneralTable = ({ tableHeaders, title, items }) => {
+const GeneralTable = ({
+  tableHeaders,
+  title,
+  items,
+  handleUiToBeDisplayed,
+}) => {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
@@ -116,7 +121,11 @@ const GeneralTable = ({ tableHeaders, title, items }) => {
   return (
     <>
       <Overlay isOpen={isOpen} onClose={handleClose}>
-        <UserDetailsModal onClose={handleClose} selectedUser={selectedUser} />
+        <UserDetailsModal
+          onClose={handleClose}
+          selectedUser={selectedUser}
+          handleUiToBeDisplayed={handleUiToBeDisplayed}
+        />
       </Overlay>
       <Overlay
         isOpen={isModificationModalOpen}
@@ -127,139 +136,143 @@ const GeneralTable = ({ tableHeaders, title, items }) => {
           selectedUser={selectedUser}
         />
       </Overlay>
-      <div className="w-[100%] flex flex-col bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] h-fit overflow-auto">
-        <div className="flex justify-between ">
-          {/* <div className="flex justify-between h-[36px] max-2xl:h-[28.8px] "> */}
-          <div className="capitalize text-[20px] max-2xl:text-[16px] font-[600] leading-[28px] max-2xl:leading-[0px] text-blackTextColor max-2xl:mt-[12px]">
-            {title}
-          </div>
-          <div className="flex items-center gap-[24px] max-2xl:gap-[19.2px]">
-            <div className="text-mainBlue leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[700] cursor-pointer hover:underline">
-              Export CSV
+      <div className="p-[32px] max-2xl:p-[25.6px]">
+        <div className="w-[100%]  flex flex-col bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] h-fit overflow-auto">
+          <div className="flex justify-between ">
+            {/* <div className="flex justify-between h-[36px] max-2xl:h-[28.8px] "> */}
+            <div className="capitalize text-[20px] max-2xl:text-[16px] font-[600] leading-[28px] max-2xl:leading-[0px] text-blackTextColor max-2xl:mt-[12px]">
+              {title}
             </div>
-            <div className="flex w-[236px] h-[36px] gap-[8px] max-2xl:h-[28.8px] max-2xl:gap-[6.4px] items-center  border-b-[0.01px] border-b-silverTextColor">
-              <Icon
-                icon="flowbite:search-outline"
-                className={`w-[24px] max-2xl:w-[19.2px] h-[24px] max-2xl:h-[19.2px] text-blackTextColor`}
-              />
-              <input
-                type="text"
-                placeholder="Search"
-                className="border-none outline-none text-silverTextColor text-[16px]  leading-[28px] max-2xl:text-[12.8px]  max-2xl:leading-[22.4px]"
-              />
-            </div>
-            <div className="relative w-[80px]  h-[36px] flex gap-[8px] max-2xl:gap-[6.4px] max-2xl:w-[64px] max-2xl:h-[28.8px] cursor-pointer bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] pt-[4px] max-2xl:pt-[3.2px] px-[8px] max-2xl:px-[6.4px]">
-              <div className="text-[16px] max-2xl:text-[12.8px] font-[400] leading-[28px] max-2xl:leading-[22.4px] text-blackTextColor">
-                Filter
+            <div className="flex items-center gap-[24px] max-2xl:gap-[19.2px]">
+              <div className="text-mainBlue leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[700] cursor-pointer hover:underline">
+                Export CSV
               </div>
-              <img
-                src={arrowDown}
-                alt="arrowDonw"
-                className="max-2xl:w-[12.8px] max-2xl:h-[12.8px]"
+              <div className="flex w-[236px] h-[36px] gap-[8px] max-2xl:h-[28.8px] max-2xl:gap-[6.4px] items-center  border-b-[0.01px] border-b-silverTextColor">
+                <Icon
+                  icon="flowbite:search-outline"
+                  className={`w-[24px] max-2xl:w-[19.2px] h-[24px] max-2xl:h-[19.2px] text-blackTextColor`}
+                />
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="border-none outline-none text-silverTextColor text-[16px]  leading-[28px] max-2xl:text-[12.8px]  max-2xl:leading-[22.4px]"
+                />
+              </div>
+              <div className="relative w-[80px]  h-[36px] flex gap-[8px] max-2xl:gap-[6.4px] max-2xl:w-[64px] max-2xl:h-[28.8px] cursor-pointer bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] pt-[4px] max-2xl:pt-[3.2px] px-[8px] max-2xl:px-[6.4px]">
+                <div className="text-[16px] max-2xl:text-[12.8px] font-[400] leading-[28px] max-2xl:leading-[22.4px] text-blackTextColor">
+                  Filter
+                </div>
+                <img
+                  src={arrowDown}
+                  alt="arrowDonw"
+                  className="max-2xl:w-[12.8px] max-2xl:h-[12.8px]"
+                />
+              </div>
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel=">"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={2}
+                pageCount={pageCount}
+                previousLabel="<"
+                renderOnZeroPageCount={null}
+                marginPagesDisplayed={1}
+                activeClassName={"activePage"}
+                className="flex gap-4 text-silverTextColor text-[16px] max-2xl:text-[12.8px] leading-[28px] max-2xl:leading-[22.4px]"
               />
             </div>
-            <ReactPaginate
-              breakLabel="..."
-              nextLabel=">"
-              onPageChange={handlePageClick}
-              pageRangeDisplayed={2}
-              pageCount={pageCount}
-              previousLabel="<"
-              renderOnZeroPageCount={null}
-              marginPagesDisplayed={1}
-              activeClassName={"activePage"}
-              className="flex gap-4 text-silverTextColor text-[16px] max-2xl:text-[12.8px] leading-[28px] max-2xl:leading-[22.4px]"
-            />
           </div>
-        </div>
 
-        <table className="border-separate border-spacing-y-[24px] max-2xl:border-spacing-y-[19.2px] relative">
-          <div className="left-[-24px] max-2xl:left-[-19.2px]  w-[calc(100%+48px)] max-2xl:w-[calc(100%+38.4px)]  h-[31px] bg-[#005AE01A] absolute top-[40px] max-2xl:top-[30px]"></div>
-          <tr>
-            {tableHeaders?.map((tableHeader) => {
-              return (
-                <th className="text-[14px] max-2xl:text-[11.2px] leading-[18px] max-2xl:leading-[14.4px] font-[400] text-[#1E1E1E99] text-left">
-                  <div className="flex gap-[8px] items-center">
-                    <div className={`${tableHeader === "more" && "opacity-0"}`}>
-                      {tableHeader}
-                    </div>
-                    {tableHeader !== "more" && (
-                      <Icon
-                        icon="f7:sort-up"
-                        className={`w-[16px] max-2xl:w-[12.8px] h-[16px] max-2xl:h-[12.8px] text-silverTextColor`}
-                      />
-                    )}
-                  </div>
-
-                  <span></span>
-                </th>
-              );
-            })}
-          </tr>
-          {currentItems &&
-            currentItems.map((item, index) => {
-              const { firstname, lastname, email, location, status } = item;
-
-              return (
-                <tr>
-                  <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor">
-                    {firstname} {lastname}
-                  </td>
-                  <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
-                    {location?.postalCode?.slice(0, 4)}
-                  </td>
-                  <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor">
-                    {email}
-                  </td>
-                  <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
-                    1hr ago
-                  </td>
-                  <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
-                    30/01/2024
-                  </td>
-                  <td>
-                    {status === "active" ? (
-                      <TableActiveStatusIndicator />
-                    ) : (
-                      <TableInActiveStatusIndicator />
-                    )}
-                  </td>
-                  <td className="relative">
-                    <Icon
-                      // Anytime this is clicked, show the pop-up beside it
-                      icon="uiw:more"
-                      className={`popup text-right ml-auto w-[16px] max-2xl:w-[12.8px] h-[16px] max-2xl:h-[12.8px] text-[#161616] cursor-pointer`}
-                      onClick={() => handleSetRowIndexAndUser(index, item)}
-                    />
-                    {showPopup[index] && (
+          <table className="border-separate border-spacing-y-[24px] max-2xl:border-spacing-y-[19.2px] relative">
+            <div className="left-[-24px] max-2xl:left-[-19.2px]  w-[calc(100%+48px)] max-2xl:w-[calc(100%+38.4px)]  h-[31px] bg-[#005AE01A] absolute top-[40px] max-2xl:top-[30px]"></div>
+            <tr>
+              {tableHeaders?.map((tableHeader) => {
+                return (
+                  <th className="text-[14px] max-2xl:text-[11.2px] leading-[18px] max-2xl:leading-[14.4px] font-[400] text-[#1E1E1E99] text-left">
+                    <div className="flex gap-[8px] items-center">
                       <div
-                        ref={popupRef}
-                        className="z-[2] flex flex-col absolute top-0 right-[0px] bg-[#F8F8F8]  shadow-md w-[192px] h-[88px] rounded-[8px] max-2xl:w-[153.6px] max-2xl:h-[70.4px]  "
+                        className={`${tableHeader === "more" && "opacity-0"}`}
                       >
-                        <div
-                          className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-tr-[8px] rounded-tl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-tr-[8px] max-2xl:rounded-tl-[8px]"
-                          onClick={() => setIsOpen(true)}
-                        >
-                          View Details
-                        </div>
-                        <div
-                          className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-br-[8px] rounded-bl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-br-[8px] max-2xl:rounded-bl-[8px]"
-                          onClick={() => setisModificationModalOpen(true)}
-                        >
-                          {selectedUser &&
-                            selectedUser?.status === "active" &&
-                            "Deactivate User"}
-                          {selectedUser &&
-                            selectedUser?.status === "inactive" &&
-                            "Reactivate User"}
-                        </div>
+                        {tableHeader}
                       </div>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
-        </table>
+                      {tableHeader !== "more" && (
+                        <Icon
+                          icon="f7:sort-up"
+                          className={`w-[16px] max-2xl:w-[12.8px] h-[16px] max-2xl:h-[12.8px] text-silverTextColor`}
+                        />
+                      )}
+                    </div>
+
+                    <span></span>
+                  </th>
+                );
+              })}
+            </tr>
+            {currentItems &&
+              currentItems.map((item, index) => {
+                const { firstname, lastname, email, location, status } = item;
+
+                return (
+                  <tr>
+                    <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor">
+                      {firstname} {lastname}
+                    </td>
+                    <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
+                      {location?.postalCode?.slice(0, 4)}
+                    </td>
+                    <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor">
+                      {email}
+                    </td>
+                    <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
+                      1hr ago
+                    </td>
+                    <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
+                      30/01/2024
+                    </td>
+                    <td>
+                      {status === "active" ? (
+                        <TableActiveStatusIndicator />
+                      ) : (
+                        <TableInActiveStatusIndicator />
+                      )}
+                    </td>
+                    <td className="relative">
+                      <Icon
+                        // Anytime this is clicked, show the pop-up beside it
+                        icon="uiw:more"
+                        className={`popup text-right ml-auto w-[16px] max-2xl:w-[12.8px] h-[16px] max-2xl:h-[12.8px] text-[#161616] cursor-pointer`}
+                        onClick={() => handleSetRowIndexAndUser(index, item)}
+                      />
+                      {showPopup[index] && (
+                        <div
+                          ref={popupRef}
+                          className="z-[2] flex flex-col absolute top-0 right-[0px] bg-[#F8F8F8]  shadow-md w-[192px] h-[88px] rounded-[8px] max-2xl:w-[153.6px] max-2xl:h-[70.4px]  "
+                        >
+                          <div
+                            className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-tr-[8px] rounded-tl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-tr-[8px] max-2xl:rounded-tl-[8px]"
+                            onClick={() => setIsOpen(true)}
+                          >
+                            View Details
+                          </div>
+                          <div
+                            className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-br-[8px] rounded-bl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-br-[8px] max-2xl:rounded-bl-[8px]"
+                            onClick={() => setisModificationModalOpen(true)}
+                          >
+                            {selectedUser &&
+                              selectedUser?.status === "active" &&
+                              "Deactivate User"}
+                            {selectedUser &&
+                              selectedUser?.status === "inactive" &&
+                              "Reactivate User"}
+                          </div>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+          </table>
+        </div>
       </div>
     </>
   );

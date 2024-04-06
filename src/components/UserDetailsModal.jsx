@@ -5,7 +5,7 @@ import { verified } from "../assets/icons";
 import Overlay from "./Overlay";
 import UserModificationConfirmation from "./UserModificationConfirmation";
 
-const UserDetailsModal = ({ onClose, selectedUser }) => {
+const UserDetailsModal = ({ onClose, selectedUser, handleUiToBeDisplayed }) => {
   // State for user details modal visibility
   const [isOpen, setIsOpen] = useState(false);
 
@@ -105,12 +105,18 @@ const UserDetailsModal = ({ onClose, selectedUser }) => {
         </div>
         <div className="flex">
           {selectedUser?.status === "active" && (
-            <div className="px-[16px] rounded-[8px] font-bold text-white py-[8px] text-[16px] bg-mainBlue leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]">
+            <div
+              className="px-[16px] rounded-[8px] font-bold text-white py-[8px] text-[16px] bg-mainBlue leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]"
+              onClick={() => handleUiToBeDisplayed("userPortfolio")}
+            >
               View Portfolio
             </div>
           )}
           {selectedUser?.status === "inactive" && (
-            <div className="px-[16px] rounded-[8px] font-bold text-blackTextColor py-[8px] text-[16px] bg-borderColor leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]">
+            <div
+              className="px-[16px] rounded-[8px] font-bold text-blackTextColor py-[8px] text-[16px] bg-borderColor leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]"
+              onClick={() => handleUiToBeDisplayed("userPortfolio")}
+            >
               View Portfolio
             </div>
           )}
