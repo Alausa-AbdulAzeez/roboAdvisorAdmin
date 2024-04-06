@@ -23,4 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 
-max-lg:w-[183.53px] max-md:w-[137.65px] max-sm:w-[114.71px]
+max-lg:w-[183.53px] max-md:w-[137.65px] max-md:w-[114.71px]

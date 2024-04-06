@@ -22,7 +22,7 @@ export const CustomTooltip = ({ active, payload, label }) => {
 
 const TotalPortfolioValueGraph = ({ data }) => {
   return (
-    <ResponsiveContainer className="w-full h-[70%] max-sm:h-full">
+    <ResponsiveContainer className="w-full h-[70%] max-md:h-full">
       <AreaChart data={data} className="ml-[-30px] ">
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">

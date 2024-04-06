@@ -138,7 +138,7 @@ const TotalPortfolioValue = () => {
   // END OF USE EFFECT TO HANDLE CLICKS AWAY FROM THE PREFERRED DETAILS HANDLER
 
   return (
-    <div className="overflow-auto w-[62%] flex flex-col gap-[30px] max-2xl:gap-[24px] bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px]  p-[24px] max-2xl:p-[19.2px]  h-full max-sm:h-[466px] max-sm:w-full max-sm:p-[16px]">
+    <div className="overflow-auto w-[62%] flex flex-col gap-[30px] max-2xl:gap-[24px] bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px]  p-[24px] max-2xl:p-[19.2px]  h-full max-md:h-[466px] max-md:w-full max-md:p-[16px]">
       <div className="flex justify-between h-fit">
         <div className="flex flex-col gap-[8px] max-2xl:gap-[6.4px]">
           <div className="relative w-fit min-w-[200px] flex gap-[16px] max-2xl:gap-[12.8px] justify-between cursor-pointer bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] pt-[4px] max-2xl:pt-[3.2px] px-[8px] max-2xl:px-[6.4px]">
@@ -200,7 +200,7 @@ const TotalPortfolioValue = () => {
           </div>
         </div>
         <div className="">
-          <div className="max-sm:hidden w-[226px] max-2xl:w-[180.8px] h-[35px] max-2xl:h-[28px]  py-[2px] max-2xl:py-[1.6px] flex bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px]">
+          <div className="max-md:hidden w-[226px] max-2xl:w-[180.8px] h-[35px] max-2xl:h-[28px]  py-[2px] max-2xl:py-[1.6px] flex bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px]">
             <div
               className={` ${
                 selectedTimeFrame === "1M" &&
@@ -238,14 +238,14 @@ const TotalPortfolioValue = () => {
               ALL
             </div>
           </div>
-          <div className="hidden max-sm:flex relative w-fit gap-[16px] max-2xl:gap-[12.8px] cursor-pointer bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] pt-[4px] max-2xl:pt-[3.2px] px-[8px] max-2xl:px-[6.4px]">
-            <div className="timeframeToggle text-[14px] max-2xl:text-[11.2px] font-[400] leading-[28px] max-2xl:leading-[22.4px] text-blackTextColor">
+          <div className="hidden max-md:flex relative w-fit cursor-pointer bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] pt-[4px] max-2xl:pt-[3.2px] px-[8px] max-2xl:px-[6.4px]">
+            <div className="timeframeToggle flex-1 text-[14px] pr-[16px] max-2xl:text-[11.2px] font-[400] leading-[28px] max-2xl:leading-[22.4px] text-blackTextColor">
               {selectedTimeFrame}
             </div>
             <img
               src={arrowDown}
               alt="arrowDonw"
-              className="max-2xl:w-[12.8px] max-2xl:h-[12.8px]"
+              className="max-2xl:w-[12.8px] max-2xl:h-[12.8px] timeframeToggle"
             />
             {clickedTimeframe && (
               <div
