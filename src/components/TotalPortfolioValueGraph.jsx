@@ -22,11 +22,8 @@ export const CustomTooltip = ({ active, payload, label }) => {
 
 const TotalPortfolioValueGraph = ({ data }) => {
   return (
-    <ResponsiveContainer width="100%" height="70%">
-      <AreaChart
-        data={data}
-        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-      >
+    <ResponsiveContainer className="w-full h-[70%] max-sm:h-full">
+      <AreaChart data={data} className="ml-[-30px] ">
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#005AE01A" stopOpacity={0.8} />
@@ -38,7 +35,7 @@ const TotalPortfolioValueGraph = ({ data }) => {
           axisLine={false}
           tick={{ stroke: "#1E1E1E", strokeWidth: 0.3 }}
           tickLine={false}
-          className="text-[12px] max-2xl:text-[11px]"
+          className="text-[12px] max-2xl:text-[10px]"
         />
         <YAxis
           axisLine={false}
@@ -46,7 +43,7 @@ const TotalPortfolioValueGraph = ({ data }) => {
           tick={{ stroke: "#1E1E1E", strokeWidth: 0.3 }}
           tickLine={false}
           tickFormatter={(tick) => `${tick}m`}
-          className="text-[12px] max-2xl:text-[11px]"
+          className="text-[12px] max-2xl:text-[10px]"
         />
         <Tooltip content={<CustomTooltip />} cursor={{ fill: "#1E1E1E" }} />
         <Area

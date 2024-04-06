@@ -21,7 +21,7 @@ const Overview = () => {
         </div>
       </div>
       <div className="w-full h-[337px] max-2xl:h-[269.6px] max-sm:h-fit p-[24px] max-2xl:p-[19.2px] max-sm:p-[16px] bg-white relative border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] flex-wrap">
-        <div className="w-[100%] h-[50%] max-sm:h-fit  border-b-[0.05px] border-borderColor max-sm:border-none flex max-sm:flex-col max-sm:gap-[14px] max-sm:mb-[14px]">
+        <div className="w-[100%] h-[50%] max-sm:h-fit  border-b-[1px] border-borderColor max-sm:border-none flex max-sm:flex-col max-sm:gap-[14px] max-sm:mb-[14px]">
           <OverviewCard
             title={"Total Portfolio value"}
             amount={"N300,810,565"}

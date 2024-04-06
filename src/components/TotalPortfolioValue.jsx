@@ -138,7 +138,7 @@ const TotalPortfolioValue = () => {
   // END OF USE EFFECT TO HANDLE CLICKS AWAY FROM THE PREFERRED DETAILS HANDLER
 
   return (
-    <div className="overflow-auto w-[62%] flex flex-col gap-[30px] max-2xl:gap-[24px] bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px]  p-[24px] max-2xl:p-[19.2px] h-full max-sm:h-[466px] max-sm:w-full">
+    <div className="overflow-auto w-[62%] flex flex-col gap-[30px] max-2xl:gap-[24px] bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px]  p-[24px] max-2xl:p-[19.2px]  h-full max-sm:h-[466px] max-sm:w-full max-sm:p-[16px]">
       <div className="flex justify-between h-fit">
         <div className="flex flex-col gap-[8px] max-2xl:gap-[6.4px]">
           <div className="relative w-fit min-w-[200px] flex gap-[16px] max-2xl:gap-[12.8px] justify-between cursor-pointer bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] pt-[4px] max-2xl:pt-[3.2px] px-[8px] max-2xl:px-[6.4px]">
@@ -281,7 +281,8 @@ const TotalPortfolioValue = () => {
           </div>
         </div>
       </div>
-      {/* <div className="flex-1 bg-red-900"></div> */}
+      {/* <div className="flex-1 bg-red-900">
+      </div> */}
       <TotalPortfolioValueGraph data={data} />
       {/* <div className="flex-1 bg-black w-full h-28"></div> */}
     </div>
