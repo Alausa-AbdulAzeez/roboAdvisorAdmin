@@ -3,7 +3,7 @@ import RiskToleranceDistributionPieChart from "./RiskToleranceDistributionPieCha
 
 const RiskToleranceDistribution = () => {
   return (
-    <div className="overflow-auto bg-white flex flex-col gap-[32px] max-2xl:gap-[25.6px] flex-1 border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] h-full">
+    <div className="overflow-auto bg-white flex flex-col gap-[32px] max-2xl:gap-[25.6px] flex-1 border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] h-full max-sm:h-[518px] max-sm:flex-none">
       <div className="uppercase text-[14px] max-2xl:text-[11.2px] font-[400] text-blackTextColor leading-[28px] max-2xl:leading-[22.4px]">
         Risk Tolerance Distribution
       </div>
