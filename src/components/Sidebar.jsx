@@ -65,7 +65,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="h-full max-[300px]:zoomMax300 max-[400px]:zoomMax400 max-sm:zoomMaxSm max-md:zoomMaxMd max-[850px]:zoomMax850 max-xl:zoomMaxXl  w-[271px] max-2xl:w-[216.8px]  bg-white border-r border-borderColor">
+    <div className="max-sm:w-0 h-full max-[300px]:zoomMax300 max-[400px]:zoomMax400 max-sm:zoomMaxSm max-md:zoomMaxMd max-[850px]:zoomMax850 max-xl:zoomMaxXl  w-[271px] max-2xl:w-[216.8px]  bg-white border-r border-borderColor">
       <div className="mx-auto w-[207px] max-2xl:w-[165.6px] h-[64px] flex items-center text-left text-mainBlue text-[24px] max-2xl:text-[19.2px] font-[900] leading-[28px] max-2xl:leading-[22.4px] tracking-[-0.41px] max-2xl:tracking-[-0.33px]">
         <Link to={"/"}>Robovisor</Link>
       </div>

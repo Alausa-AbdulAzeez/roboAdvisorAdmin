@@ -39,7 +39,7 @@ const UserPortfolioSummaryText = () => {
           </div>
         </div>
       </div>
-      <div className="flex">
+      <div className="flex ">
         <div className="flex flex-col gap-[4px]">
           <div className=" uppercase text-[14px] text-silverTextColor max-2xl:text-[11.2px] leading-[28px] max-2xl:leading-[22.4px] font-[400]">
             Portfolio ID:

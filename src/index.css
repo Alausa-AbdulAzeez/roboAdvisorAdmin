@@ -13,11 +13,7 @@ body {
 }
 
 @layer utilities {
-  .content-auto {
-    content-visibility: auto;
-  }
-
-  .zoomMaxXl {
+  /* .zoomMaxXl {
     zoom: 0.75;
   }
   .zoomMax850 {
@@ -34,7 +30,7 @@ body {
   }
   .zoomMax400 {
     zoom: 0.3;
-  }
+  } */
   .activePage {
     width: 24px;
     height: auto;
