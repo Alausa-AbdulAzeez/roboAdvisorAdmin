@@ -3,12 +3,15 @@ import { accountIcon, arrowDown, bellIcon } from "../assets/icons";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 
-const Topbar = ({ title }) => {
+const Topbar = ({ title, toggleSidebar }) => {
   return (
     <>
-      <div className="hidden z-[3] max-md:flex flex-col p-[16px] pt-0 gap-[16px] w-full border border-l-0 border-[#D4D4D4] bg-white sticky top-0 ">
+      <div className="hidden z-[3] max-lg:flex flex-col p-[16px] pt-0 gap-[16px] w-full border border-l-0 border-[#D4D4D4] bg-white sticky top-0 ">
         <div className="flex justify-between">
-          <div className="w-[32px]  h-[32px] flex items-center justify-center">
+          <div
+            className="w-[32px]  h-[32px] flex items-center justify-center"
+            onClick={toggleSidebar}
+          >
             <Icon
               icon="bitcoin-icons:menu-filled"
               className={` text-blackTextColor w-full h-full`}
@@ -52,7 +55,7 @@ const Topbar = ({ title }) => {
           </div>
         </div>
       </div>
-      <div className="max-md:hidden max-[300px]:zoomMax300 max-[400px]:zoomMax400 max-md:zoomMaxSm max-md:zoomMaxMd max-[850px]:zoomMax850 max-xl:zoomMaxXl  z-[3]  h-[76px] px-[32px] max-2xl:h-[60.8px] max-2xl:px-[25.6px]   w-full border border-l-0 border-[#D4D4D4] bg-white flex items-center justify-between sticky top-0">
+      <div className="max-lg:hidden max-[300px]:zoomMax300 max-[400px]:zoomMax400 max-md:zoomMaxSm max-md:zoomMaxMd max-[850px]:zoomMax850 max-xl:zoomMaxXl  z-[3]  h-[76px] px-[32px] max-2xl:h-[60.8px] max-2xl:px-[25.6px]   w-full border border-l-0 border-[#D4D4D4] bg-white flex items-center justify-between sticky top-0">
         <div className="hidden max-md:flex h-[28px] bg-white"></div>
         <div className="text-blackTextColor text-[32px] leading-[40px] max-2xl:text-[25.6px]  max-2xl:leading-[32px] font-[700]">
           {title}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import {
@@ -31,7 +31,7 @@ const InactiveSidebarBorder = () => {
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({ isSidebarOpen, toggleSidebar, setIsSidebarOpen }) => {
   // Sidebar data
   const sidebarData = [
     {
@@ -64,61 +64,107 @@ const Sidebar = () => {
     },
   ];
 
-  return (
-    <div className="max-lg:w-0 h-full max-[300px]:zoomMax300 max-[400px]:zoomMax400 max-md:zoomMaxSm max-md:zoomMaxMd max-[850px]:zoomMax850 max-xl:zoomMaxXl  w-[271px] max-2xl:w-[216.8px]  bg-white border-r border-borderColor">
-      <div className="mx-auto w-[207px] max-2xl:w-[165.6px] h-[64px] flex items-center text-left text-mainBlue text-[24px] max-2xl:text-[19.2px] font-[900] leading-[28px] max-2xl:leading-[22.4px] tracking-[-0.41px] max-2xl:tracking-[-0.33px]">
-        <Link to={"/"}>Robovisor</Link>
-      </div>
-      <div className="mt-[16px] max-2xl:mt-[12.8px] w-full">
-        {sidebarData?.map((singleSidebarData) => (
-          <NavLink to={singleSidebarData.url}>
-            {({ isActive }) => (
-              <div className="w-full h-[60px] max-2xl:h-[48px] flex items-center gap-[21px] max-2xl:gap-[16.8px]">
-                {isActive ? <ActiveSidebarBorder /> : <InactiveSidebarBorder />}
+  // USE EFFECT TO CHECK SCREEN SIZE AND SET SIDEBAR STATE
+  useEffect(() => {
+    // Function to handle window resize
+    const handleResize = () => {
+      // Update sidebarOpen based on screen size
+      if (isSidebarOpen && window.innerWidth > 1023) {
+        setIsSidebarOpen(false); // You can adjust the threshold as needed
+      }
+    };
 
-                <div className="flex gap-[8px] max-2xl:gap[6.4px] items-center">
-                  <Icon
-                    icon={singleSidebarData.iconName}
-                    className={`w-[24px] max-2xl:w-[19.2px] h-[24px] max-2xl:h-[19.2px] ${
-                      isActive ? "text-mainBlue" : "text-blackTextColor"
-                    }`}
-                  />
-                  <div
-                    className={`text-[16px] leading-[28px] max-2xl:text-[12.8px] max-2xl:leading-[22.4px] font-[400] ${
-                      isActive ? "text-mainBlue" : "text-blackTextColor"
-                    }`}
-                  >
-                    {singleSidebarData.title}
+    // Initial call to handleResize
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isSidebarOpen]); // Empty dependency array ensures the effect runs only once during mount
+
+  return (
+    <>
+      {/* Overlay */}
+      {isSidebarOpen && (
+        <div
+          className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-50"
+          onClick={toggleSidebar}
+        ></div>
+      )}
+      <div
+        className={`${
+          isSidebarOpen
+            ? "fixed top-0 left-0 h-full w-[271px] max-2xl:w-[216.8px] bg-white border-r border-borderColor z-50"
+            : "max-lg:w-0 h-full block w-[271px] max-2xl:w-[216.8px]  bg-white border-r border-borderColor"
+        } `}
+      >
+        {/* <div
+        className={`${
+          isSidebarOpen ? "fixed" : "hidden"
+        } top-0 left-0 h-full maxw-[271px] max-2xl:w-[216.8px] bg-white border-r border-borderColor z-50`}
+      > */}
+        <div className="mx-auto w-[207px] max-2xl:w-[165.6px] h-[64px] flex items-center text-left text-mainBlue text-[24px] max-2xl:text-[19.2px] font-[900] leading-[28px] max-2xl:leading-[22.4px] tracking-[-0.41px] max-2xl:tracking-[-0.33px]">
+          <Link to={"/"}>Robovisor</Link>
+        </div>
+        <div className="mt-[16px] max-2xl:mt-[12.8px] w-full">
+          {sidebarData?.map((singleSidebarData) => (
+            <NavLink to={singleSidebarData.url}>
+              {({ isActive }) => (
+                <div className="w-full h-[60px] max-2xl:h-[48px] flex items-center gap-[21px] max-2xl:gap-[16.8px]">
+                  {isActive ? (
+                    <ActiveSidebarBorder />
+                  ) : (
+                    <InactiveSidebarBorder />
+                  )}
+
+                  <div className="flex gap-[8px] max-2xl:gap[6.4px] items-center">
+                    <Icon
+                      icon={singleSidebarData.iconName}
+                      className={`w-[24px] max-2xl:w-[19.2px] h-[24px] max-2xl:h-[19.2px] ${
+                        isActive ? "text-mainBlue" : "text-blackTextColor"
+                      }`}
+                    />
+                    <div
+                      className={`text-[16px] leading-[28px] max-2xl:text-[12.8px] max-2xl:leading-[22.4px] font-[400] ${
+                        isActive ? "text-mainBlue" : "text-blackTextColor"
+                      }`}
+                    >
+                      {singleSidebarData.title}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-          </NavLink>
-        ))}
-        <div className="w-full h-[60px] max-2xl:h-[48px] flex items-center gap-[21px] max-2xl:gap-[16.8px]">
-          <InactiveSidebarBorder />
-          <div className="flex w-full justify-between items-center">
-            <div className="flex gap-[8px] max-2xl:gap[6.4px] items-center">
-              <Icon
-                icon="icon-park-solid:activity-source"
-                className={`w-[24px] max-2xl:w-[19.2px] h-[24px] max-2xl:h-[19.2px] text-blackTextColor`}
-              />
+              )}
+            </NavLink>
+          ))}
+          <div className="w-full h-[60px] max-2xl:h-[48px] flex items-center gap-[21px] max-2xl:gap-[16.8px]">
+            <InactiveSidebarBorder />
+            <div className="flex w-full justify-between items-center">
+              <div className="flex gap-[8px] max-2xl:gap[6.4px] items-center">
+                <Icon
+                  icon="icon-park-solid:activity-source"
+                  className={`w-[24px] max-2xl:w-[19.2px] h-[24px] max-2xl:h-[19.2px] text-blackTextColor`}
+                />
 
-              <div
-                className={`text-[16px] leading-[28px] max-2xl:text-[12.8px] max-2xl:leading-[22.4px] font-[400] text-blackTextColor`}
-              >
-                Activity Log
+                <div
+                  className={`text-[16px] leading-[28px] max-2xl:text-[12.8px] max-2xl:leading-[22.4px] font-[400] text-blackTextColor`}
+                >
+                  Activity Log
+                </div>
               </div>
+              <img
+                src={arrowDown}
+                alt="arrowDown"
+                className="mr-[32px] max-2xl:mr-[25.6px] max-2xl:h-[12.8px] max-2xl:w-[12.8px]"
+              />
             </div>
-            <img
-              src={arrowDown}
-              alt="arrowDown"
-              className="mr-[32px] max-2xl:mr-[25.6px] max-2xl:h-[12.8px] max-2xl:w-[12.8px]"
-            />
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
