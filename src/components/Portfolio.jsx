@@ -2,6 +2,8 @@ import React from "react";
 import { moneyBag } from "../assets/icons";
 import GoalDrift from "./GoalDrift";
 import { Icon } from "@iconify/react";
+import GeneralDoughnutChart from "./GeneralDoughnutChart";
+import PieChartLegend from "./PieChartLegend";
 
 const TextIconComponent = ({ textName }) => {
   return (
@@ -19,10 +21,19 @@ const TextIconComponent = ({ textName }) => {
   );
 };
 
-const Portfolio = ({ type }) => {
+const Portfolio = ({ type, handleUiToBeDisplayed, ui }) => {
+  const data = [
+    { name: "Group A", value: 500, color: "#0082E0", percentage: "10%" },
+    { name: "Group B", value: 400, color: "#00E0D3", percentage: "20%" },
+    { name: "Group C", value: 350, color: "#00E09D", percentage: "30%" },
+    { name: "Group D", value: 300, color: "#E04300", percentage: "10%" },
+    { name: "Group E", value: 300, color: "#E09400", percentage: "15%" },
+    { name: "Group F", value: 200, color: "#005AE0", percentage: "15%" },
+  ];
+
   return (
     <div className="w-[100%] h-fit overflow-auto  flex justify-between bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] ">
-      <div className="flex flex-col gap-[32px] max-2xl:gap-[25.6px]">
+      <div className="flex flex-col w-[40%] gap-[32px] max-2xl:gap-[25.6px] ">
         <div className="flex items-center gap-[32px] max-2xl:gap-[25.6px]">
           <div className="px-[16px] flex items-center gap-[16px] rounded-[8px] font-[400] py-[8px] text-[16px] bg-backgroundBlueColor text-mainBlue leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px] max-2xl:gap-[12.8px]">
             <img
@@ -89,7 +100,45 @@ const Portfolio = ({ type }) => {
           </div>
         </div>
       </div>
-      <div className=""></div>
+      <div className="flex flex-col w-[40%]  gap-[32px] max-2xl:gap-[25.6px] items-start ">
+        <div className="flex flex-col gap-[8px] max-2xl:gap-[6.4px]">
+          <div className="text-[20px] max-2xl:text-[16px] font-[600] leading-[28px] max-2xl:leading-[22.4px] text-blackTextColor">
+            Portfolio Chart
+          </div>
+          <GeneralDoughnutChart />
+        </div>
+        <div className="w-full flex gap-[32px] max-2xl:gap-[25.6px] flex-wrap ">
+          {data?.map((datum, index) => {
+            const { color, name, percentage } = datum;
+            return (
+              <PieChartLegend
+                key={index}
+                borderColor={color}
+                title={name}
+                percentage={percentage}
+              />
+            );
+          })}
+        </div>
+        {type === "On Course" && (
+          <div className="w-full text-[16px] text-right font-[400] text-silverTextColor leading-[28px] max-2xl:leading-[22.4px]  max-2xl:text-[12.8px]">
+            Auto Deposit: N20,000 automatic deposit every month
+          </div>
+        )}
+        <div className="flex justify-end w-full">
+          {ui === "userPortfolio" && (
+            <div
+              className="w-[24px] h-[24px] max-2xl:w-[19.2px] max-2xl:h-[19.2px] cursor-pointer"
+              onClick={() => handleUiToBeDisplayed("goalPerformance")}
+            >
+              <Icon
+                icon="bi:arrow-right"
+                className={` text-black w-full h-full`}
+              />
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

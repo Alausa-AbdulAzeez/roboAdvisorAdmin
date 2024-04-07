@@ -4,7 +4,7 @@ import UserPortfolioSummary from "./UserPortfolioSummary";
 import { targetIcon } from "../assets/icons";
 import Portfolio from "./Portfolio";
 
-const UserPortfolio = () => {
+const UserPortfolio = ({ handleUiToBeDisplayed }) => {
   // Filters
   const filters = ["On Course", "Off Course", "All"];
   const portfolios = ["On Course", "Off Course", "All"];
@@ -76,7 +76,13 @@ const UserPortfolio = () => {
         </div>
         <div className="flex flex-col gap-[32px] max-2xl:gap-[25.6px]">
           {portfolios?.map((portfolio) => {
-            return <Portfolio type={portfolio} />;
+            return (
+              <Portfolio
+                type={portfolio}
+                handleUiToBeDisplayed={handleUiToBeDisplayed}
+                ui={"userPortfolio"}
+              />
+            );
           })}
         </div>
       </div>
