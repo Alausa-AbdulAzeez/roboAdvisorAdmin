@@ -7,6 +7,8 @@ const TableWithCollapsableRow = ({
   totalInvested = 1000000,
   totalReturned = 1300000,
   goal = 10000000,
+  compositionStage,
+  setIsOpen,
 }) => {
   const percentCompletion = ((totalInvested + totalReturned) / goal) * 100;
   const converted = percentCompletion.toFixed(2).toString() + "%";
@@ -228,7 +230,6 @@ const TableWithCollapsableRow = ({
               <td className="w-[400px] text-[16px]   leading-[28px] font-[400] text-blackTextColor py-3 whitespace-nowrap max-2xl:text-[12.8px]  max-2xl:leading-[22.4px]">
                 <div className="flex items-center justify-center w-full">
                   <div className="w-[20%]"> {row.percentage}</div>
-
                   <div className="w-[80%]  h-[18px] max-2xl:h-[14.4px] ">
                     <div
                       style={{ width: row.percentage, background: row.color }}
@@ -238,7 +239,17 @@ const TableWithCollapsableRow = ({
                 </div>
               </td>
               <td className="text-right text-[16px] leading-[28px] font-[400] text-blackTextColor py-3 whitespace-nowrap max-2xl:text-[12.8px]  max-2xl:leading-[22.4px]">
-                {row.value}
+                <div className="flex  justify-end items-center">
+                  {row.value}
+                  {compositionStage !== "editComposition" && (
+                    <span onClick={() => setIsOpen(true)}>
+                      <Icon
+                        icon="mdi:edit"
+                        className={` text-blackTextColor w-[16px] h-[16px] max-2xl:h-[12.8px] max-2xl:w-[12.8px] ml-[16px] max-2xl:ml-[12.8px] `}
+                      />
+                    </span>
+                  )}
+                </div>
               </td>
             </tr>
             {/* Expanded detail row */}
@@ -267,7 +278,7 @@ const TableWithCollapsableRow = ({
                         </div>
                       </div>
                     </td>
-                    <td className=" text-[16px] leading-[28px] font-[400] text-silverTextColor py-1 whitespace-nowrap max-2xl:text-[12.8px]  max-2xl:leading-[22.4px]">
+                    <td className="text-right text-[16px] leading-[28px] font-[400] text-silverTextColor py-1 whitespace-nowrap max-2xl:text-[12.8px]  max-2xl:leading-[22.4px]">
                       {value}
                     </td>
                   </tr>

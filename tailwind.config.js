@@ -3,6 +3,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      boxShadow: {
+        activeInputBlueBoxShadow: "0px 0px 6px 0px #005AE099",
+      },
       colors: {
         mainBlue: "#005AE0",
         backgroundColor: "#F9FBFE",
