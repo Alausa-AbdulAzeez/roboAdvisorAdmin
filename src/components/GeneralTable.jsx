@@ -136,14 +136,60 @@ const GeneralTable = ({
           selectedUser={selectedUser}
         />
       </Overlay>
-      <div className="p-[32px] max-2xl:p-[25.6px]">
+      <div className="p-[32px] max-2xl:p-[25.6px] max-lg:px-[16px]">
         <div className="w-[100%]  flex flex-col bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] h-fit overflow-auto">
-          <div className="flex justify-between ">
+          <div className="flex justify-between max-lg:flex-col max-lg:gap-[24px] ">
+            <div className="flex justify-between">
+              <div className="hidden max-lg:block capitalize text-[20px] font-[600] leading-[28px] text-blackTextColor">
+                {title}
+              </div>
+              <div className="text-mainBlue hidden max-lg:block leading-[28px]  text-[16px]  font-[700] cursor-pointer hover:underline">
+                Export CSV
+              </div>
+            </div>
+            <div className="flex w-full">
+              <div className="flex w-full h-[36px] gap-[8px]  items-center  border-b-[0.01px] border-b-silverTextColor">
+                <Icon
+                  icon="flowbite:search-outline"
+                  className={`w-[24px] h-[24px] text-blackTextColor`}
+                />
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="border-none outline-none text-silverTextColor text-[16px]  leading-[28px] max-2xl:text-[12.8px]  max-2xl:leading-[22.4px]"
+                />
+              </div>
+            </div>
+            <div className="flex justify-between items-center">
+              <div className="relative w-[80px]  h-[36px] flex gap-[8px] cursor-pointer bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] pt-[4px] px-[8px]">
+                <div className="text-[16px]  font-[400] leading-[28px] text-blackTextColor">
+                  Filter
+                </div>
+                <img
+                  src={arrowDown}
+                  alt="arrowDonw"
+                  className="max-2xl:w-[12.8px] max-2xl:h-[12.8px]"
+                />
+              </div>
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel=">"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={2}
+                pageCount={pageCount}
+                previousLabel="<"
+                renderOnZeroPageCount={null}
+                marginPagesDisplayed={1}
+                activeClassName={"activePage"}
+                className="flex gap-4 text-silverTextColor text-[16px] leading-[28px]"
+              />
+            </div>
+
             {/* <div className="flex justify-between h-[36px] max-2xl:h-[28.8px] "> */}
-            <div className="capitalize text-[20px] max-2xl:text-[16px] font-[600] leading-[28px] max-2xl:leading-[0px] text-blackTextColor max-2xl:mt-[12px]">
+            <div className="max-lg:hidden capitalize text-[20px] max-2xl:text-[16px] font-[600] leading-[28px] max-2xl:leading-[0px] text-blackTextColor max-2xl:mt-[12px]">
               {title}
             </div>
-            <div className="flex items-center gap-[24px] max-2xl:gap-[19.2px]">
+            <div className="max-lg:hidden flex items-center gap-[24px] max-2xl:gap-[19.2px]">
               <div className="text-mainBlue leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[700] cursor-pointer hover:underline">
                 Export CSV
               </div>
@@ -184,11 +230,21 @@ const GeneralTable = ({
           </div>
 
           <table className="border-separate border-spacing-y-[24px] max-2xl:border-spacing-y-[19.2px] relative">
-            <div className="left-[-24px] max-2xl:left-[-19.2px]  w-[calc(100%+48px)] max-2xl:w-[calc(100%+38.4px)]  h-[31px] bg-[#005AE01A] absolute top-[40px] max-2xl:top-[30px]"></div>
+            <div className="left-[-24px] max-2xl:left-[-19.2px]  w-[calc(100%+48px)] max-2xl:w-[calc(100%+38.4px)] max-lg:w-[calc(100%+42px)]  h-[31px] bg-[#005AE01A] absolute top-[40px] max-2xl:top-[30px]"></div>
             <tr>
               {tableHeaders?.map((tableHeader) => {
                 return (
-                  <th className="text-[14px] max-2xl:text-[11.2px] leading-[18px] max-2xl:leading-[14.4px] font-[400] text-[#1E1E1E99] text-left">
+                  <th
+                    className={`${
+                      tableHeader === "User ID" ||
+                      tableHeader === "Last Login" ||
+                      tableHeader === "Registration Date"
+                        ? "max-lg:hidden "
+                        : ""
+                    } ${
+                      tableHeader === "Email Address" && "max-lg:w-[10px]"
+                    } text-[14px] max-2xl:text-[11.2px] leading-[18px] max-2xl:leading-[14.4px] font-[400] text-[#1E1E1E99] text-left`}
+                  >
                     <div className="flex gap-[8px] items-center">
                       <div
                         className={`${tableHeader === "more" && "opacity-0"}`}
@@ -214,19 +270,19 @@ const GeneralTable = ({
 
                 return (
                   <tr>
-                    <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor">
+                    <td className="leading-[28px] text-nowrap max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor">
                       {firstname} {lastname}
                     </td>
-                    <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
+                    <td className="max-lg:hidden  leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
                       {location?.postalCode?.slice(0, 4)}
                     </td>
-                    <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor">
+                    <td className="leading-[28px] max-lg:px-3 max-lg:text-nowrap max-lg:overflow-hidden max-lg:text-ellipsis max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor">
                       {email}
                     </td>
-                    <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
+                    <td className="max-lg:hidden leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
                       1hr ago
                     </td>
-                    <td className="leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
+                    <td className="max-lg:hidden leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
                       30/01/2024
                     </td>
                     <td>
