@@ -129,10 +129,10 @@ const TransactionsTable = ({ tableHeaders, title, items }) => {
           <div className="left-[-24px] max-2xl:left-[-19.2px]  w-[calc(100%+48px)] max-2xl:w-[calc(100%+38.4px)] max-lg:w-[calc(100%+42px)]  h-[31px] bg-[#005AE01A] absolute top-[95px] max-2xl:top-[75px] max-lg:top-[195px]"></div>
           <div className="w-full hidden max-lg:flex max-lg:flex-col max-lg:gap-[24px] justify-between">
             <div className="flex justify-between">
-              <div className="hidden max-lg:block capitalize text-[20px] font-[600] leading-[28px] text-blackTextColor">
+              <div className="hidden max-lg:block capitalize text-[20px] max-lg:text-[16px] font-[600] leading-[28px] text-blackTextColor">
                 {title}
               </div>
-              <div className="text-mainBlue hidden max-lg:block leading-[28px]  text-[16px]  font-[700] cursor-pointer hover:underline">
+              <div className="text-mainBlue hidden max-lg:block leading-[28px]  text-[16px] max-lg:text-[14px]  font-[700] cursor-pointer hover:underline">
                 Export CSV
               </div>
             </div>
@@ -150,7 +150,7 @@ const TransactionsTable = ({ tableHeaders, title, items }) => {
               </div>
             </div>
             <div className="flex justify-between items-center">
-              <div className="relative w-[80px]  h-[36px] flex gap-[8px] cursor-pointer bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] pt-[4px] px-[8px]">
+              <div className="relative w-[80px]  h-[36px] flex gap-[8px] cursor-pointer bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] px-[8px]">
                 <div className="text-[16px]  font-[400] leading-[28px] text-blackTextColor">
                   Filter
                 </div>
@@ -193,7 +193,7 @@ const TransactionsTable = ({ tableHeaders, title, items }) => {
                   className="border-none outline-none text-silverTextColor text-[16px]  leading-[28px] max-2xl:text-[12.8px]  max-2xl:leading-[22.4px]"
                 />
               </div>
-              <div className="relative w-[80px]  h-[36px] flex gap-[8px] max-2xl:gap-[6.4px] max-2xl:w-[64px] max-2xl:h-[28.8px] cursor-pointer bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] pt-[4px] max-2xl:pt-[3.2px] px-[8px] max-2xl:px-[6.4px]">
+              <div className="relative w-[80px]  h-[36px] flex gap-[8px] max-2xl:gap-[6.4px] max-2xl:w-[64px] max-2xl:h-[28.8px] cursor-pointer bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px]  px-[8px] max-2xl:px-[6.4px]">
                 <div className="text-[16px] max-2xl:text-[12.8px] font-[400] leading-[28px] max-2xl:leading-[22.4px] text-blackTextColor">
                   Filter
                 </div>
