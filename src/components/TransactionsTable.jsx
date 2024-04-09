@@ -277,7 +277,7 @@ const TransactionsTable = ({ tableHeaders, title, items }) => {
                         {userId}
                       </td>
                       <td className="leading-[28px]  max-lg:text-nowrap max-lg:overflow-hidden max-lg:text-ellipsis max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor max-md:text-left">
-                        <div className="flex items-center gap-[4px]">
+                        <div className="pr-6 flex items-center gap-[4px]">
                           <div className="w-[16px] h-[16px] ">
                             {type === "Withdrawal" && (
                               <img src={withdrawal} alt="Withdrawal" />

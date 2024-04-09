@@ -12,6 +12,9 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/portfolios" element={<Portfolios />} />
         <Route path="/transactions" element={<Transactions />} />
+        <Route path="/activityLog">
+          <Route path="/activityLog/admin" element={<Transactions />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

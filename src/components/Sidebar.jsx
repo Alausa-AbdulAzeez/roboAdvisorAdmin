@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import {
@@ -63,6 +63,27 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, setIsSidebarOpen }) => {
       url: "/transactions",
     },
   ];
+
+  // Activity log state
+  const [isActivityLogOpen, setIsActivityLogOpen] = useState(false);
+
+  // Activity log sub links
+  const activityLogSubLinks = [
+    {
+      title: "Admin Activity Log",
+      url: "/activityLog/admin",
+    },
+    {
+      title: "User Activity Log",
+      url: "/activityLog/users",
+    },
+  ];
+
+  // Function to toggle activitylog status
+  const toggleActivityLog = () => {
+    setIsActivityLogOpen(!isActivityLogOpen);
+  };
+  // End of function to toggle activitylog status
 
   // USE EFFECT TO CHECK SCREEN SIZE AND SET SIDEBAR STATE
   useEffect(() => {
@@ -140,28 +161,67 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, setIsSidebarOpen }) => {
               )}
             </NavLink>
           ))}
-          <div className="w-full h-[60px] max-2xl:h-[48px] flex items-center gap-[21px] max-2xl:gap-[16.8px]">
-            <InactiveSidebarBorder />
+          <div
+            className="w-full h-[60px] max-2xl:h-[48px] flex items-center gap-[21px] max-2xl:gap-[16.8px]"
+            onClick={toggleActivityLog}
+          >
+            {isActivityLogOpen ? (
+              <ActiveSidebarBorder />
+            ) : (
+              <InactiveSidebarBorder />
+            )}
             <div className="flex w-full justify-between items-center">
               <div className="flex gap-[8px] max-2xl:gap[6.4px] items-center">
                 <Icon
                   icon="icon-park-solid:activity-source"
-                  className={`w-[24px] max-2xl:w-[19.2px] h-[24px] max-2xl:h-[19.2px] text-blackTextColor`}
+                  className={`w-[24px] max-2xl:w-[19.2px] h-[24px] max-2xl:h-[19.2px] ${
+                    isActivityLogOpen ? "text-mainBlue" : "text-blackTextColor"
+                  } `}
                 />
 
                 <div
-                  className={`text-[16px] leading-[28px] max-2xl:text-[12.8px] max-2xl:leading-[22.4px] font-[400] text-blackTextColor`}
+                  className={`text-[16px] leading-[28px] max-2xl:text-[12.8px] max-2xl:leading-[22.4px] font-[400] ${
+                    isActivityLogOpen ? "text-mainBlue" : "text-blackTextColor"
+                  } `}
                 >
                   Activity Log
                 </div>
               </div>
-              <img
-                src={arrowDown}
-                alt="arrowDown"
-                className="mr-[32px] max-2xl:mr-[25.6px] max-2xl:h-[12.8px] max-2xl:w-[12.8px]"
+              <Icon
+                icon="ep:arrow-up-bold"
+                className={`mr-[32px] max-2xl:mr-[25.6px] max-2xl:h-[12.8px] max-2xl:w-[12.8px] ${
+                  isActivityLogOpen
+                    ? "transform rotate-180 text-mainBlue"
+                    : "text-blackTextColor"
+                }`}
               />
             </div>
           </div>
+          {isActivityLogOpen &&
+            activityLogSubLinks?.map((activityLogSubLink) => {
+              return (
+                <NavLink to={activityLogSubLink.url}>
+                  {({ isActive }) => (
+                    <div className="w-full pl-[64px] max-2xl:pl-[51.2px]  h-[60px] max-2xl:h-[48px] flex justify-between items-center gap-[21px] max-2xl:gap-[16.8px]">
+                      <div className="flex gap-[8px] max-2xl:gap[6.4px] items-center">
+                        <div
+                          className={`text-[16px] leading-[28px] max-2xl:text-[12.8px] max-2xl:leading-[22.4px] font-[400] ${
+                            isActive ? "text-mainBlue" : "text-blackTextColor"
+                          }`}
+                        >
+                          {activityLogSubLink.title}
+                        </div>
+                      </div>
+                      {isActive ? (
+                        <ActiveSidebarBorder />
+                      ) : (
+                        <InactiveSidebarBorder />
+                      )}
+                    </div>
+                  )}
+                </NavLink>
+              );
+            })}
         </div>
       </div>
     </>
