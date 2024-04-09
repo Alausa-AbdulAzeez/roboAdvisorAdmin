@@ -4,6 +4,7 @@ import Topbar from "../components/Topbar";
 import GeneralTable from "../components/GeneralTable";
 import UserPortfolio from "../components/UserPortfolio";
 import { useLocation, useNavigate } from "react-router-dom";
+import GoalPerformance from "../components/GoalPerformance";
 
 const Users = () => {
   const location = useLocation();
@@ -1175,6 +1176,10 @@ const Users = () => {
             items={items}
             handleUiToBeDisplayed={handleUiToBeDisplayed}
           />
+        );
+      case "goalPerformance":
+        return (
+          <GoalPerformance handleUiToBeDisplayed={handleUiToBeDisplayed} />
         );
 
       default:

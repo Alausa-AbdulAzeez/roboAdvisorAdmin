@@ -19,10 +19,16 @@ import aggregateSharpeRatio from "./aggregateSharpeRatio.svg";
 import numberOfActiveUsers from "./numberOfActiveUsers.svg";
 import totalTransactions from "./totalTransactions.svg";
 import verified from "./verified.svg";
+import targetIcon from "./targetIcon.svg";
+import moneyBag from "./moneyBag.svg";
+import folderLibrary from "./folderLibrary.svg";
 
 export {
   sum,
+  folderLibrary,
   verified,
+  targetIcon,
+  moneyBag,
   aggregateSharpeRatio,
   numberOfActiveUsers,
   totalTransactions,
