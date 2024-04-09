@@ -13,7 +13,9 @@ export default {
         blackTextColor: "#1E1E1E",
         silverTextColor: "#1E1E1E99",
         textGreenColor: "#00E09D",
+        textYellowColor: "#E09400",
         backgroundGreenColor: "#00E09D1A",
+        backgroundYellowColor: "#E094001A",
         backgroundBlueColor: "#005AE01A",
         textRedColor: "#E04300",
         backgroundRedColor: "#E043001A",
@@ -23,4 +25,3 @@ export default {
   },
   plugins: [],
 };
-

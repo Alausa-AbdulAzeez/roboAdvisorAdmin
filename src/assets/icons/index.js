@@ -22,9 +22,13 @@ import verified from "./verified.svg";
 import targetIcon from "./targetIcon.svg";
 import moneyBag from "./moneyBag.svg";
 import folderLibrary from "./folderLibrary.svg";
+import deposit from "./deposit.svg";
+import withdrawal from "./withdrawal.svg";
 
 export {
   sum,
+  deposit,
+  withdrawal,
   folderLibrary,
   verified,
   targetIcon,
