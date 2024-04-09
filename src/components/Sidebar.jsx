@@ -162,7 +162,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, setIsSidebarOpen }) => {
             </NavLink>
           ))}
           <div
-            className="w-full h-[60px] max-2xl:h-[48px] flex items-center gap-[21px] max-2xl:gap-[16.8px]"
+            className="w-full cursor-pointer h-[60px] max-2xl:h-[48px] flex items-center gap-[21px] max-2xl:gap-[16.8px]"
             onClick={toggleActivityLog}
           >
             {isActivityLogOpen ? (

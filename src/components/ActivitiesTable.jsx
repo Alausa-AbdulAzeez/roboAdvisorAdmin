@@ -11,7 +11,7 @@ import Overlay from "./Overlay";
 import TransactionDetailsModal from "./TransactionDetailsModal";
 import ActivitiesDetailsModal from "./ActivityDetailsModal";
 
-const ActivitiesTable = ({ tableHeaders, title, items }) => {
+const ActivitiesTable = ({ tableHeaders, title, items, user }) => {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
@@ -113,10 +113,10 @@ const ActivitiesTable = ({ tableHeaders, title, items }) => {
       <Overlay isOpen={isOpen} onClose={handleClose}>
         <ActivitiesDetailsModal
           onClose={handleClose}
-          title={"Admin Activity Log Details"}
+          title={"User Activity Log Details"}
           selectedActivity={selectedActivity}
-          userType={"admin"}
-          type={"admin"}
+          userType={"user"}
+          type={"user"}
         />
       </Overlay>
 
@@ -132,7 +132,7 @@ const ActivitiesTable = ({ tableHeaders, title, items }) => {
             />
           </div>
           <div className=" cursor-pointer font-[600] leading-[28px] text-blackTextColor text-[20px] max-2xl:text-[16px] max-2xl:leading-[22.4px]  ">
-            Admin Activity Log
+            {user} Activity Log
           </div>
         </div>
         <div className="w-[100%]  flex flex-col bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] h-fit overflow-hidden relative">
@@ -244,7 +244,9 @@ const ActivitiesTable = ({ tableHeaders, title, items }) => {
                     >
                       <div
                         className={`flex gap-[8px] items-center text-nowrap overflow-hidden text-ellipsis ${
-                          tableHeader === "Admin ID" && "max-sm:mx-3 "
+                          (tableHeader === "Admin ID" ||
+                            tableHeader === "User ID") &&
+                          "max-sm:mx-3 "
                         }  ${
                           tableHeader === "Type" &&
                           "max-[400px]:justify-center max-lg:justify-start "
@@ -273,6 +275,7 @@ const ActivitiesTable = ({ tableHeaders, title, items }) => {
                   const {
                     logId,
                     adminId,
+                    userId,
                     activityType,
                     description,
                     timeStamp,
@@ -285,7 +288,7 @@ const ActivitiesTable = ({ tableHeaders, title, items }) => {
                         {logId}
                       </td>
                       <td className="max-sm:px-3  leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
-                        {adminId}
+                        {user === "Admin" ? adminId : userId}
                       </td>
                       <td className=" leading-[28px]  max-lg:text-nowrap max-lg:overflow-hidden max-lg:text-ellipsis max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor max-md:text-left">
                         {activityType}
