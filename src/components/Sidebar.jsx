@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import {
   activityLogInactive,
@@ -63,9 +63,17 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, setIsSidebarOpen }) => {
       url: "/transactions",
     },
   ];
+  const location = useLocation();
+  const navigte = useNavigate();
 
   // Activity log state
-  const [isActivityLogOpen, setIsActivityLogOpen] = useState(false);
+  const [isActivityLogOpen, setIsActivityLogOpen] = useState(
+    sessionStorage.getItem("activityLogStatus")
+  );
+  // Activity log state
+  const [isActivityLogParentActive, setIsActivityLogParentActive] = useState(
+    location.pathname.includes("/activityLog")
+  );
 
   // Activity log sub links
   const activityLogSubLinks = [
@@ -82,8 +90,26 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, setIsSidebarOpen }) => {
   // Function to toggle activitylog status
   const toggleActivityLog = () => {
     setIsActivityLogOpen(!isActivityLogOpen);
+    if (!location.pathname.includes("/activityLog")) {
+      navigte("/activityLog/admin");
+    }
   };
   // End of function to toggle activitylog status
+
+  useEffect(() => {
+    // Check if the current location matches any activity log sublink
+    const isActivityLogSublinkActive =
+      location.pathname.includes("/activityLog");
+    if (!isActivityLogOpen) {
+      setIsActivityLogParentActive(isActivityLogSublinkActive);
+    }
+    // Update the state of Activity Log based on whether any sublink is active
+  }, [location]);
+
+  // Useeffect to store activity log status
+  useEffect(() => {
+    sessionStorage.setItem("activityLogStatus", isActivityLogOpen);
+  }, [isActivityLogOpen]);
 
   // USE EFFECT TO CHECK SCREEN SIZE AND SET SIDEBAR STATE
   useEffect(() => {
@@ -165,7 +191,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, setIsSidebarOpen }) => {
             className="w-full cursor-pointer h-[60px] max-2xl:h-[48px] flex items-center gap-[21px] max-2xl:gap-[16.8px]"
             onClick={toggleActivityLog}
           >
-            {isActivityLogOpen ? (
+            {isActivityLogParentActive ? (
               <ActiveSidebarBorder />
             ) : (
               <InactiveSidebarBorder />
@@ -175,13 +201,17 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, setIsSidebarOpen }) => {
                 <Icon
                   icon="icon-park-solid:activity-source"
                   className={`w-[24px] max-2xl:w-[19.2px] h-[24px] max-2xl:h-[19.2px] ${
-                    isActivityLogOpen ? "text-mainBlue" : "text-blackTextColor"
+                    isActivityLogParentActive
+                      ? "text-mainBlue"
+                      : "text-blackTextColor"
                   } `}
                 />
 
                 <div
                   className={`text-[16px] leading-[28px] max-2xl:text-[12.8px] max-2xl:leading-[22.4px] font-[400] ${
-                    isActivityLogOpen ? "text-mainBlue" : "text-blackTextColor"
+                    isActivityLogParentActive
+                      ? "text-mainBlue"
+                      : "text-blackTextColor"
                   } `}
                 >
                   Activity Log
@@ -190,7 +220,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, setIsSidebarOpen }) => {
               <Icon
                 icon="ep:arrow-up-bold"
                 className={`mr-[32px] max-2xl:mr-[25.6px] max-2xl:h-[12.8px] max-2xl:w-[12.8px] ${
-                  isActivityLogOpen
+                  isActivityLogParentActive
                     ? "transform rotate-180 text-mainBlue"
                     : "text-blackTextColor"
                 }`}

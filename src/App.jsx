@@ -15,8 +15,8 @@ function App() {
         <Route path="/portfolios" element={<Portfolios />} />
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/activityLog">
-          <Route path=":admin" element={<AdminActivityLog />} />
-          <Route path=":users" element={<UserActivityLog />} />
+          <Route path="admin" element={<AdminActivityLog />} />
+          <Route path="users" element={<UserActivityLog />} />
         </Route>
       </Routes>
     </BrowserRouter>
@@ -24,4 +24,3 @@ function App() {
 }
 
 export default App;
-
