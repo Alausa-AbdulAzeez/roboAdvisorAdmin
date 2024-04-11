@@ -7,7 +7,7 @@ const GoalDrift = ({ totalInvested, totalReturned, goal, type }) => {
       <div className="text-[16px] text-[#00E09D] leading-[28px] font-semibold max-2xl:text-[12.8px] max-2xl:leading-[22.4px]">
         {type}
       </div>
-      <div className="flex gap-[16px] max-2xl:gap-[12.8px] items-center">
+      <div className="flex max-lg:flex-col max-lg:items-start gap-[16px] max-2xl:gap-[12.8px] items-center">
         <div className="h-[22px] rounded-[75px] w-[272px] border border-borderColor max-2xl:h-[17.6px] max-2xl:rounded-[60px] max-2xl:w-[217.6px]">
           <div
             style={{ width: converted }}

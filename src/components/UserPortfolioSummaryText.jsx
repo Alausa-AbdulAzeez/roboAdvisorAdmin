@@ -2,10 +2,10 @@ import React from "react";
 
 const UserPortfolioSummaryText = () => {
   return (
-    <div className="w-[50%] bg-white border border-borderColor p-[24px] flex flex-col justify-between rounded-[8px] max-2xl:rounded-[6.4px] max-2xl:p-[19.2px]">
+    <div className="w-[50%] max-lg:w-full max-lg:h-[337px] bg-white border border-borderColor p-[24px] flex flex-col justify-between rounded-[8px] max-2xl:rounded-[6.4px] max-2xl:p-[19.2px]">
       <div className="flex">
         <div className="flex flex-col gap-[4px] w-[50%]">
-          <div className=" uppercase text-[14px] text-silverTextColor max-2xl:text-[11.2px] leading-[28px] max-2xl:leading-[22.4px] font-[400]">
+          <div className=" uppercase text-[14px] text-nowrap text-silverTextColor max-2xl:text-[11.2px] leading-[28px] max-2xl:leading-[22.4px] font-[400]">
             Total Robovisor Balance
           </div>
           <div className="text-[24px] font-[600] text-blackTextColor leading-[28px] max-2xl:leading-[22.4px] max-2xl:text-[19.2px]">

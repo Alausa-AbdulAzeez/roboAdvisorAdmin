@@ -9,13 +9,12 @@ import {
 import Overlay from "./Overlay";
 import UserDetailsModal from "./UserDetailsModal";
 import UserModificationConfirmation from "./UserModificationConfirmation";
+import Topbar from "./Topbar";
+import { useOutletContext } from "react-router-dom";
 
-const GeneralTable = ({
-  tableHeaders,
-  title,
-  items,
-  handleUiToBeDisplayed,
-}) => {
+const GeneralTable = () => {
+  const [toggleSidebar] = useOutletContext();
+
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
@@ -23,13 +22,1136 @@ const GeneralTable = ({
   //   Number of items displayed on the table
   const itemsPerPage = 10;
 
+  // DUMMY DATA FOR TABLE HEADERS
+  const tableHeaders = [
+    "Username",
+    "User ID",
+    "Email Address",
+    "Last Login",
+    "Registration Date",
+    "Status",
+    "more",
+  ];
+
+  // TABLE TITLE
+  const title = "User List";
+
+  // Demo data
+  // Example items, to simulate fetching from another resources.
+
+  const items = [
+    {
+      email: "user1@example.com",
+      firstname: "User1",
+      preferredName: "User1",
+      middleName: "Middle1",
+      lastname: "Doe1",
+      dateOfBirth: "6 July, 1973",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "inactive",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "448274",
+        street: "Street1",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487181",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user2@example.com",
+      firstname: "User2",
+      preferredName: "User2",
+      middleName: "Middle2",
+      lastname: "Doe2",
+      dateOfBirth: "26 February, 1978",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "720545",
+        street: "Street2",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487182",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user3@example.com",
+      firstname: "User3",
+      preferredName: "User3",
+      middleName: "Middle3",
+      lastname: "Doe3",
+      dateOfBirth: "12 March, 1962",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "inactive",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "130097",
+        street: "Street3",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487183",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user4@example.com",
+      firstname: "User4",
+      preferredName: "User4",
+      middleName: "Middle4",
+      lastname: "Doe4",
+      dateOfBirth: "10 December, 1977",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "272087",
+        street: "Street4",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487184",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user5@example.com",
+      firstname: "User5",
+      preferredName: "User5",
+      middleName: "Middle5",
+      lastname: "Doe5",
+      dateOfBirth: "2 June, 1963",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "inactive",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "477029",
+        street: "Street5",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487185",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user6@example.com",
+      firstname: "User6",
+      preferredName: "User6",
+      middleName: "Middle6",
+      lastname: "Doe6",
+      dateOfBirth: "14 May, 1984",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "581022",
+        street: "Street6",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487186",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user7@example.com",
+      firstname: "User7",
+      preferredName: "User7",
+      middleName: "Middle7",
+      lastname: "Doe7",
+      dateOfBirth: "8 August, 1989",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "361084",
+        street: "Street7",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487187",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user8@example.com",
+      firstname: "User8",
+      preferredName: "User8",
+      middleName: "Middle8",
+      lastname: "Doe8",
+      dateOfBirth: "25 April, 1982",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "inactive",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "788226",
+        street: "Street8",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487188",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user9@example.com",
+      firstname: "User9",
+      preferredName: "User9",
+      middleName: "Middle9",
+      lastname: "Doe9",
+      dateOfBirth: "16 September, 1976",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "134789",
+        street: "Street9",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487189",
+      currentStage: "preEmailVerification",
+    },
+
+    {
+      email: "user1@example.com",
+      firstname: "User1",
+      preferredName: "User1",
+      middleName: "Middle1",
+      lastname: "Doe1",
+      dateOfBirth: "6 July, 1973",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "448274",
+        street: "Street1",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487181",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user2@example.com",
+      firstname: "User2",
+      preferredName: "User2",
+      middleName: "Middle2",
+      lastname: "Doe2",
+      dateOfBirth: "26 February, 1978",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "720545",
+        street: "Street2",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487182",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user3@example.com",
+      firstname: "User3",
+      preferredName: "User3",
+      middleName: "Middle3",
+      lastname: "Doe3",
+      dateOfBirth: "12 March, 1962",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "130097",
+        street: "Street3",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487183",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user4@example.com",
+      firstname: "User4",
+      preferredName: "User4",
+      middleName: "Middle4",
+      lastname: "Doe4",
+      dateOfBirth: "10 December, 1977",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "272087",
+        street: "Street4",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487184",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user5@example.com",
+      firstname: "User5",
+      preferredName: "User5",
+      middleName: "Middle5",
+      lastname: "Doe5",
+      dateOfBirth: "2 June, 1963",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "inactive",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "477029",
+        street: "Street5",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487185",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user10@example.com",
+      firstname: "User10",
+      preferredName: "User10",
+      middleName: "Middle10",
+      lastname: "Doe10",
+      dateOfBirth: "30 November, 1981",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "502173",
+        street: "Street10",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487190",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user11@example.com",
+      firstname: "User11",
+      preferredName: "User11",
+      middleName: "Middle11",
+      lastname: "Doe11",
+      dateOfBirth: "3 October, 1985",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "689540",
+        street: "Street11",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487191",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user12@example.com",
+      firstname: "User12",
+      preferredName: "User12",
+      middleName: "Middle12",
+      lastname: "Doe12",
+      dateOfBirth: "17 December, 1987",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "965238",
+        street: "Street12",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487192",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user13@example.com",
+      firstname: "User13",
+      preferredName: "User13",
+      middleName: "Middle13",
+      lastname: "Doe13",
+      dateOfBirth: "22 January, 1983",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "570218",
+        street: "Street13",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487193",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user14@example.com",
+      firstname: "User14",
+      preferredName: "User14",
+      middleName: "Middle14",
+      lastname: "Doe14",
+      dateOfBirth: "9 February, 1975",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "105713",
+        street: "Street14",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487194",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user15@example.com",
+      firstname: "User15",
+      preferredName: "User15",
+      middleName: "Middle15",
+      lastname: "Doe15",
+      dateOfBirth: "19 March, 1980",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "621634",
+        street: "Street15",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487195",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user16@example.com",
+      firstname: "User16",
+      preferredName: "User16",
+      middleName: "Middle16",
+      lastname: "Doe16",
+      dateOfBirth: "5 July, 1986",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "825096",
+        street: "Street16",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487196",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user17@example.com",
+      firstname: "User17",
+      preferredName: "User17",
+      middleName: "Middle17",
+      lastname: "Doe17",
+      dateOfBirth: "11 August, 1971",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "448274",
+        street: "Street17",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487197",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user18@example.com",
+      firstname: "User18",
+      preferredName: "User18",
+      middleName: "Middle18",
+      lastname: "Doe18",
+      dateOfBirth: "28 September, 1978",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "720545",
+        street: "Street18",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487198",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user19@example.com",
+      firstname: "User19",
+      preferredName: "User19",
+      middleName: "Middle19",
+      lastname: "Doe19",
+      dateOfBirth: "12 June, 1984",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "699237",
+        street: "Street19",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487199",
+      currentStage: "preEmailVerification",
+    },
+
+    {
+      email: "user1@example.com",
+      firstname: "User1",
+      preferredName: "User1",
+      middleName: "Middle1",
+      lastname: "Doe1",
+      dateOfBirth: "6 July, 1973",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "448274",
+        street: "Street1",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487181",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user2@example.com",
+      firstname: "User2",
+      preferredName: "User2",
+      middleName: "Middle2",
+      lastname: "Doe2",
+      dateOfBirth: "26 February, 1978",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "720545",
+        street: "Street2",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487182",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user3@example.com",
+      firstname: "User3",
+      preferredName: "User3",
+      middleName: "Middle3",
+      lastname: "Doe3",
+      dateOfBirth: "12 March, 1962",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "130097",
+        street: "Street3",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487183",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user4@example.com",
+      firstname: "User4",
+      preferredName: "User4",
+      middleName: "Middle4",
+      lastname: "Doe4",
+      dateOfBirth: "10 December, 1977",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "272087",
+        street: "Street4",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487184",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user5@example.com",
+      firstname: "User5",
+      preferredName: "User5",
+      middleName: "Middle5",
+      lastname: "Doe5",
+      dateOfBirth: "2 June, 1963",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "477029",
+        street: "Street5",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487185",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user6@example.com",
+      firstname: "User6",
+      preferredName: "User6",
+      middleName: "Middle6",
+      lastname: "Doe6",
+      dateOfBirth: "14 May, 1984",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "581022",
+        street: "Street6",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487186",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user7@example.com",
+      firstname: "User7",
+      preferredName: "User7",
+      middleName: "Middle7",
+      lastname: "Doe7",
+      dateOfBirth: "8 August, 1989",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "361084",
+        street: "Street7",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487187",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user8@example.com",
+      firstname: "User8",
+      preferredName: "User8",
+      middleName: "Middle8",
+      lastname: "Doe8",
+      dateOfBirth: "25 April, 1982",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "788226",
+        street: "Street8",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487188",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user9@example.com",
+      firstname: "User9",
+      preferredName: "User9",
+      middleName: "Middle9",
+      lastname: "Doe9",
+      dateOfBirth: "16 September, 1976",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "134789",
+        street: "Street9",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487189",
+      currentStage: "preEmailVerification",
+    },
+
+    {
+      email: "user1@example.com",
+      firstname: "User1",
+      preferredName: "User1",
+      middleName: "Middle1",
+      lastname: "Doe1",
+      dateOfBirth: "6 July, 1973",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "448274",
+        street: "Street1",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487181",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user2@example.com",
+      firstname: "User2",
+      preferredName: "User2",
+      middleName: "Middle2",
+      lastname: "Doe2",
+      dateOfBirth: "26 February, 1978",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "720545",
+        street: "Street2",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487182",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user3@example.com",
+      firstname: "User3",
+      preferredName: "User3",
+      middleName: "Middle3",
+      lastname: "Doe3",
+      dateOfBirth: "12 March, 1962",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "130097",
+        street: "Street3",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487183",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user4@example.com",
+      firstname: "User4",
+      preferredName: "User4",
+      middleName: "Middle4",
+      lastname: "Doe4",
+      dateOfBirth: "10 December, 1977",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "272087",
+        street: "Street4",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487184",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user5@example.com",
+      firstname: "User5",
+      preferredName: "User5",
+      middleName: "Middle5",
+      lastname: "Doe5",
+      dateOfBirth: "2 June, 1963",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "477029",
+        street: "Street5",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487185",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user10@example.com",
+      firstname: "User10",
+      preferredName: "User10",
+      middleName: "Middle10",
+      lastname: "Doe10",
+      dateOfBirth: "30 November, 1981",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "502173",
+        street: "Street10",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487190",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user11@example.com",
+      firstname: "User11",
+      preferredName: "User11",
+      middleName: "Middle11",
+      lastname: "Doe11",
+      dateOfBirth: "3 October, 1985",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "689540",
+        street: "Street11",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487191",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user12@example.com",
+      firstname: "User12",
+      preferredName: "User12",
+      middleName: "Middle12",
+      lastname: "Doe12",
+      dateOfBirth: "17 December, 1987",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "965238",
+        street: "Street12",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487192",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user13@example.com",
+      firstname: "User13",
+      preferredName: "User13",
+      middleName: "Middle13",
+      lastname: "Doe13",
+      dateOfBirth: "22 January, 1983",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "570218",
+        street: "Street13",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487193",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user14@example.com",
+      firstname: "User14",
+      preferredName: "User14",
+      middleName: "Middle14",
+      lastname: "Doe14",
+      dateOfBirth: "9 February, 1975",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "105713",
+        street: "Street14",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487194",
+      currentStage: "preEmailVerification",
+    },
+    {
+      email: "user20@example.com",
+      firstname: "User20",
+      preferredName: "User20",
+      middleName: "Middle20",
+      lastname: "Doe20",
+      dateOfBirth: "23 July, 1987",
+      bvnVerified: "",
+      bvn: "",
+      lastLogin: "",
+      registrationDate: "",
+      status: "active",
+      location: {
+        state: "Abuja",
+        country: "Nigeria",
+        postalCode: "437822",
+        street: "Street20",
+      },
+      tier: "Tier A",
+      totalPortfolioValue: "30,051,663.00",
+      riskTolerance: "",
+      riskProfile: "Conservative",
+      phone: "08118487200",
+      currentStage: "preEmailVerification",
+    },
+  ];
+
   // Simulate fetching items from another resources.
   // (This could be items from props; or items loaded in a local state
   // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = items.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(items.length / itemsPerPage);
+  const currentItems = items?.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(items?.length / itemsPerPage);
 
   //   Ref linked to the pop up element
   const popupRef = useRef(null);
@@ -51,7 +1173,7 @@ const GeneralTable = ({
    * @type {Array<boolean>}
    */
   const [showPopup, setShowPopup] = useState(
-    Array(currentItems.length).fill(false)
+    Array(currentItems?.length).fill(false)
   );
 
   /**
@@ -91,6 +1213,12 @@ const GeneralTable = ({
   };
   // End of function to close user details modal
 
+  // Function to toggle sidebar
+  // const toggleSidebar = () => {
+  //   setIsSidebarOpen(!isSidebarOpen);
+  // };
+  // End of function to toggle sidebar
+
   //   Function to close user modification modal
   const handleCloseUserModificationModal = () => {
     setisModificationModalOpen(false);
@@ -119,224 +1247,228 @@ const GeneralTable = ({
   }, [rowIndex]);
 
   return (
-    <>
-      <Overlay isOpen={isOpen} onClose={handleClose}>
-        <UserDetailsModal
-          onClose={handleClose}
-          selectedUser={selectedUser}
-          handleUiToBeDisplayed={handleUiToBeDisplayed}
-        />
-      </Overlay>
-      <Overlay
-        isOpen={isModificationModalOpen}
-        onClose={handleCloseUserModificationModal}
-      >
-        <UserModificationConfirmation
+    <div className="flex-1 h-full overflow-auto relative">
+      <Topbar title={"Users"} toggleSidebar={toggleSidebar} />
+      <div className="w-full  min-h-full h-auto mb-[50px] bg-backgroundColor flex flex-col gap-[32px] max-2xl:gap-[25.6px] max-[300px]:zoomMax300 max-[400px]:zoomMax400 max-md:zoomMaxSm max-md:zoomMaxMd max-[850px]:zoomMax850 max-xl:zoomMaxXl ">
+        <Overlay isOpen={isOpen} onClose={handleClose}>
+          <UserDetailsModal onClose={handleClose} selectedUser={selectedUser} />
+        </Overlay>
+        <Overlay
+          isOpen={isModificationModalOpen}
           onClose={handleCloseUserModificationModal}
-          selectedUser={selectedUser}
-        />
-      </Overlay>
-      <div className="p-[32px] max-2xl:p-[25.6px] max-lg:px-[16px]">
-        <div className="w-[100%]  flex flex-col bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] h-fit overflow-hidden relative">
-          <div className="left-[-24px] max-2xl:left-[-19.2px]  w-[calc(100%+48px)] max-2xl:w-[calc(100%+38.4px)] max-lg:w-[calc(100%+42px)]  h-[31px] bg-[#005AE01A] absolute top-[95px] max-2xl:top-[75px] max-lg:top-[195px]"></div>
-          <div className="w-full hidden max-lg:flex max-lg:flex-col max-lg:gap-[24px] justify-between">
-            <div className="flex justify-between">
-              <div className="hidden max-lg:block capitalize text-[20px] font-[600] leading-[28px] text-blackTextColor">
+        >
+          <UserModificationConfirmation
+            onClose={handleCloseUserModificationModal}
+            selectedUser={selectedUser}
+          />
+        </Overlay>
+        <div className="p-[32px] max-2xl:p-[25.6px] max-lg:px-[16px]">
+          <div className="w-[100%]  flex flex-col bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] h-fit overflow-hidden relative">
+            <div className="left-[-24px] max-2xl:left-[-19.2px]  w-[calc(100%+48px)] max-2xl:w-[calc(100%+38.4px)] max-lg:w-[calc(100%+42px)]  h-[31px] bg-[#005AE01A] absolute top-[95px] max-2xl:top-[75px] max-lg:top-[195px]"></div>
+            <div className="w-full hidden max-lg:flex max-lg:flex-col max-lg:gap-[24px] justify-between">
+              <div className="flex justify-between">
+                <div className="hidden max-lg:block capitalize text-[20px] font-[600] leading-[28px] text-blackTextColor">
+                  {title}
+                </div>
+                <div className="text-mainBlue hidden max-lg:block leading-[28px]  text-[16px]  font-[700] cursor-pointer hover:underline">
+                  Export CSV
+                </div>
+              </div>
+              <div className="flex w-full">
+                <div className="flex w-full h-[36px] gap-[8px]  items-center  border-b-[0.01px] border-b-silverTextColor">
+                  <Icon
+                    icon="flowbite:search-outline"
+                    className={`w-[24px] h-[24px] text-blackTextColor`}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className="border-none outline-none text-silverTextColor text-[16px]  leading-[28px] max-2xl:text-[12.8px]  max-2xl:leading-[22.4px]"
+                  />
+                </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <div className="relative w-[80px]  h-[36px] flex gap-[8px] cursor-pointer bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] px-[8px]">
+                  <div className="text-[16px]  font-[400] leading-[28px] text-blackTextColor">
+                    Filter
+                  </div>
+                  <img
+                    src={arrowDown}
+                    alt="arrowDonw"
+                    className="max-2xl:w-[12.8px] max-2xl:h-[12.8px]"
+                  />
+                </div>
+                <ReactPaginate
+                  breakLabel="..."
+                  nextLabel=">"
+                  onPageChange={handlePageClick}
+                  pageRangeDisplayed={2}
+                  pageCount={pageCount}
+                  previousLabel="<"
+                  renderOnZeroPageCount={null}
+                  marginPagesDisplayed={1}
+                  activeClassName={"activePage"}
+                  className="flex gap-4 text-silverTextColor text-[16px] leading-[28px]"
+                />
+              </div>
+            </div>
+            <div className="flex justify-between max-lg:flex-col max-lg:gap-[24px] ">
+              <div className="max-lg:hidden capitalize text-[20px] max-2xl:text-[16px] font-[600] leading-[28px] max-2xl:leading-[0px] text-blackTextColor max-2xl:mt-[12px]">
                 {title}
               </div>
-              <div className="text-mainBlue hidden max-lg:block leading-[28px]  text-[16px]  font-[700] cursor-pointer hover:underline">
-                Export CSV
-              </div>
-            </div>
-            <div className="flex w-full">
-              <div className="flex w-full h-[36px] gap-[8px]  items-center  border-b-[0.01px] border-b-silverTextColor">
-                <Icon
-                  icon="flowbite:search-outline"
-                  className={`w-[24px] h-[24px] text-blackTextColor`}
-                />
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="border-none outline-none text-silverTextColor text-[16px]  leading-[28px] max-2xl:text-[12.8px]  max-2xl:leading-[22.4px]"
-                />
-              </div>
-            </div>
-            <div className="flex justify-between items-center">
-              <div className="relative w-[80px]  h-[36px] flex gap-[8px] cursor-pointer bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] px-[8px]">
-                <div className="text-[16px]  font-[400] leading-[28px] text-blackTextColor">
-                  Filter
+              <div className="max-lg:hidden flex items-center gap-[24px] max-2xl:gap-[19.2px]">
+                <div className="text-mainBlue leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[700] cursor-pointer hover:underline">
+                  Export CSV
                 </div>
-                <img
-                  src={arrowDown}
-                  alt="arrowDonw"
-                  className="max-2xl:w-[12.8px] max-2xl:h-[12.8px]"
-                />
-              </div>
-              <ReactPaginate
-                breakLabel="..."
-                nextLabel=">"
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={2}
-                pageCount={pageCount}
-                previousLabel="<"
-                renderOnZeroPageCount={null}
-                marginPagesDisplayed={1}
-                activeClassName={"activePage"}
-                className="flex gap-4 text-silverTextColor text-[16px] leading-[28px]"
-              />
-            </div>
-          </div>
-          <div className="flex justify-between max-lg:flex-col max-lg:gap-[24px] ">
-            <div className="max-lg:hidden capitalize text-[20px] max-2xl:text-[16px] font-[600] leading-[28px] max-2xl:leading-[0px] text-blackTextColor max-2xl:mt-[12px]">
-              {title}
-            </div>
-            <div className="max-lg:hidden flex items-center gap-[24px] max-2xl:gap-[19.2px]">
-              <div className="text-mainBlue leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[700] cursor-pointer hover:underline">
-                Export CSV
-              </div>
-              <div className="flex w-[236px] h-[36px] gap-[8px] max-2xl:h-[28.8px] max-2xl:gap-[6.4px] items-center  border-b-[0.01px] border-b-silverTextColor">
-                <Icon
-                  icon="flowbite:search-outline"
-                  className={`w-[24px] max-2xl:w-[19.2px] h-[24px] max-2xl:h-[19.2px] text-blackTextColor`}
-                />
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="border-none outline-none text-silverTextColor text-[16px]  leading-[28px] max-2xl:text-[12.8px]  max-2xl:leading-[22.4px]"
-                />
-              </div>
-              <div className="relative w-[80px]  h-[36px] flex gap-[8px] max-2xl:gap-[6.4px] max-2xl:w-[64px] max-2xl:h-[28.8px] cursor-pointer bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px]  px-[8px] max-2xl:px-[6.4px]">
-                <div className="text-[16px] max-2xl:text-[12.8px] font-[400] leading-[28px] max-2xl:leading-[22.4px] text-blackTextColor">
-                  Filter
+                <div className="flex w-[236px] h-[36px] gap-[8px] max-2xl:h-[28.8px] max-2xl:gap-[6.4px] items-center  border-b-[0.01px] border-b-silverTextColor">
+                  <Icon
+                    icon="flowbite:search-outline"
+                    className={`w-[24px] max-2xl:w-[19.2px] h-[24px] max-2xl:h-[19.2px] text-blackTextColor`}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className="border-none outline-none text-silverTextColor text-[16px]  leading-[28px] max-2xl:text-[12.8px]  max-2xl:leading-[22.4px]"
+                  />
                 </div>
-                <img
-                  src={arrowDown}
-                  alt="arrowDonw"
-                  className="max-2xl:w-[12.8px] max-2xl:h-[12.8px]"
+                <div className="relative w-[80px]  h-[36px] flex gap-[8px] max-2xl:gap-[6.4px] max-2xl:w-[64px] max-2xl:h-[28.8px] cursor-pointer bg-[#F8F8F8] items-center border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px]  px-[8px] max-2xl:px-[6.4px]">
+                  <div className="text-[16px] max-2xl:text-[12.8px] font-[400] leading-[28px] max-2xl:leading-[22.4px] text-blackTextColor">
+                    Filter
+                  </div>
+                  <img
+                    src={arrowDown}
+                    alt="arrowDonw"
+                    className="max-2xl:w-[12.8px] max-2xl:h-[12.8px]"
+                  />
+                </div>
+                <ReactPaginate
+                  breakLabel="..."
+                  nextLabel=">"
+                  onPageChange={handlePageClick}
+                  pageRangeDisplayed={2}
+                  pageCount={pageCount}
+                  previousLabel="<"
+                  renderOnZeroPageCount={null}
+                  marginPagesDisplayed={1}
+                  activeClassName={"activePage"}
+                  className="flex gap-4 text-silverTextColor text-[16px] max-2xl:text-[12.8px] leading-[28px] max-2xl:leading-[22.4px]"
                 />
               </div>
-              <ReactPaginate
-                breakLabel="..."
-                nextLabel=">"
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={2}
-                pageCount={pageCount}
-                previousLabel="<"
-                renderOnZeroPageCount={null}
-                marginPagesDisplayed={1}
-                activeClassName={"activePage"}
-                className="flex gap-4 text-silverTextColor text-[16px] max-2xl:text-[12.8px] leading-[28px] max-2xl:leading-[22.4px]"
-              />
             </div>
-          </div>
 
-          <div className="w-full max-lg:overflow-x-auto overflow-x-hidden mt-[16px] ">
-            <table className="border-separate w-full border-spacing-y-[24px] max-2xl:border-spacing-y-[19.2px] relative">
-              <tr>
-                {tableHeaders?.map((tableHeader) => {
-                  return (
-                    <th
-                      className={`${
-                        tableHeader === "User ID" ||
-                        tableHeader === "Last Login" ||
-                        tableHeader === "Registration Date"
-                          ? "max-lg:hidden "
-                          : ""
-                      } 
+            <div className="w-full max-lg:overflow-x-auto overflow-x-hidden mt-[16px] ">
+              <table className="border-separate w-full border-spacing-y-[24px] max-2xl:border-spacing-y-[19.2px] relative">
+                <tr>
+                  {tableHeaders?.map((tableHeader) => {
+                    return (
+                      <th
+                        className={`${
+                          tableHeader === "User ID" ||
+                          tableHeader === "Last Login" ||
+                          tableHeader === "Registration Date"
+                            ? "max-lg:hidden "
+                            : ""
+                        } 
                       text-[14px] max-2xl:text-[11.2px] leading-[18px] max-2xl:leading-[14.4px] font-[400] text-[#1E1E1E99] text-left`}
-                    >
-                      <div
-                        className={`flex gap-[8px] items-center  ${
-                          tableHeader === "Email Address" &&
-                          "max-lg:justify-center"
-                        } `}
                       >
                         <div
-                          className={`${tableHeader === "more" && "opacity-0"}`}
+                          className={`flex gap-[8px] items-center  ${
+                            tableHeader === "Email Address" &&
+                            "max-lg:justify-center"
+                          } `}
                         >
-                          {tableHeader}
-                        </div>
-                        {tableHeader !== "more" && (
-                          <Icon
-                            icon="f7:sort-up"
-                            className={`w-[16px] max-2xl:w-[12.8px] h-[16px] max-2xl:h-[12.8px] text-silverTextColor`}
-                          />
-                        )}
-                      </div>
-
-                      <span></span>
-                    </th>
-                  );
-                })}
-              </tr>
-              {currentItems &&
-                currentItems.map((item, index) => {
-                  const { firstname, lastname, email, location, status } = item;
-
-                  return (
-                    <tr>
-                      <td className="leading-[28px] text-nowrap max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor">
-                        {firstname} {lastname}
-                      </td>
-                      <td className="max-lg:hidden  leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
-                        {location?.postalCode?.slice(0, 4)}
-                      </td>
-                      <td className="leading-[28px] max-lg:px-3 max-lg:text-nowrap max-lg:overflow-hidden max-lg:text-ellipsis max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor max-lg:text-center">
-                        {email}
-                      </td>
-                      <td className="max-lg:hidden leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
-                        1hr ago
-                      </td>
-                      <td className="max-lg:hidden leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
-                        30/01/2024
-                      </td>
-                      <td>
-                        {status === "active" ? (
-                          <TableActiveStatusIndicator />
-                        ) : (
-                          <TableInActiveStatusIndicator />
-                        )}
-                      </td>
-                      <td className="relative">
-                        <Icon
-                          // Anytime this is clicked, show the pop-up beside it
-                          icon="uiw:more"
-                          className={`popup text-right ml-auto w-[16px] max-2xl:w-[12.8px] h-[16px] max-2xl:h-[12.8px] text-[#161616] cursor-pointer`}
-                          onClick={() => handleSetRowIndexAndUser(index, item)}
-                        />
-                        {showPopup[index] && (
                           <div
-                            ref={popupRef}
-                            className="z-[2] flex flex-col absolute top-0 right-[0px] bg-[#F8F8F8]  shadow-md w-[192px] h-[88px] rounded-[8px] max-2xl:w-[153.6px] max-2xl:h-[70.4px]  "
+                            className={`${
+                              tableHeader === "more" && "opacity-0"
+                            }`}
                           >
-                            <div
-                              className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-tr-[8px] rounded-tl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-tr-[8px] max-2xl:rounded-tl-[8px]"
-                              onClick={() => setIsOpen(true)}
-                            >
-                              View Details
-                            </div>
-                            <div
-                              className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-br-[8px] rounded-bl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-br-[8px] max-2xl:rounded-bl-[8px]"
-                              onClick={() => setisModificationModalOpen(true)}
-                            >
-                              {selectedUser &&
-                                selectedUser?.status === "active" &&
-                                "Deactivate User"}
-                              {selectedUser &&
-                                selectedUser?.status === "inactive" &&
-                                "Reactivate User"}
-                            </div>
+                            {tableHeader}
                           </div>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-            </table>
+                          {tableHeader !== "more" && (
+                            <Icon
+                              icon="f7:sort-up"
+                              className={`w-[16px] max-2xl:w-[12.8px] h-[16px] max-2xl:h-[12.8px] text-silverTextColor`}
+                            />
+                          )}
+                        </div>
+
+                        <span></span>
+                      </th>
+                    );
+                  })}
+                </tr>
+                {currentItems &&
+                  currentItems.map((item, index) => {
+                    const { firstname, lastname, email, location, status } =
+                      item;
+
+                    return (
+                      <tr>
+                        <td className="leading-[28px] text-nowrap max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor">
+                          {firstname} {lastname}
+                        </td>
+                        <td className="max-lg:hidden  leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
+                          {location?.postalCode?.slice(0, 4)}
+                        </td>
+                        <td className="leading-[28px] max-lg:px-3 max-lg:text-nowrap max-lg:overflow-hidden max-lg:text-ellipsis max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[600] text-blackTextColor max-lg:text-center">
+                          {email}
+                        </td>
+                        <td className="max-lg:hidden leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
+                          1hr ago
+                        </td>
+                        <td className="max-lg:hidden leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] font-[400] text-silverTextColor">
+                          30/01/2024
+                        </td>
+                        <td>
+                          {status === "active" ? (
+                            <TableActiveStatusIndicator />
+                          ) : (
+                            <TableInActiveStatusIndicator />
+                          )}
+                        </td>
+                        <td className="relative">
+                          <Icon
+                            // Anytime this is clicked, show the pop-up beside it
+                            icon="uiw:more"
+                            className={`popup text-right ml-auto w-[16px] max-2xl:w-[12.8px] h-[16px] max-2xl:h-[12.8px] text-[#161616] cursor-pointer`}
+                            onClick={() =>
+                              handleSetRowIndexAndUser(index, item)
+                            }
+                          />
+                          {showPopup[index] && (
+                            <div
+                              ref={popupRef}
+                              className="z-[2] flex flex-col absolute top-0 right-[0px] bg-[#F8F8F8]  shadow-md w-[192px] h-[88px] rounded-[8px] max-2xl:w-[153.6px] max-2xl:h-[70.4px]  "
+                            >
+                              <div
+                                className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-tr-[8px] rounded-tl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-tr-[8px] max-2xl:rounded-tl-[8px]"
+                                onClick={() => setIsOpen(true)}
+                              >
+                                View Details
+                              </div>
+                              <div
+                                className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-br-[8px] rounded-bl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-br-[8px] max-2xl:rounded-bl-[8px]"
+                                onClick={() => setisModificationModalOpen(true)}
+                              >
+                                {selectedUser &&
+                                  selectedUser?.status === "active" &&
+                                  "Deactivate User"}
+                                {selectedUser &&
+                                  selectedUser?.status === "inactive" &&
+                                  "Reactivate User"}
+                              </div>
+                            </div>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </table>
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

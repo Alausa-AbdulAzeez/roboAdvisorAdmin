@@ -4,6 +4,7 @@ import { profilePicture } from "../assets/images";
 import { verified } from "../assets/icons";
 import Overlay from "./Overlay";
 import UserModificationConfirmation from "./UserModificationConfirmation";
+import { Link } from "react-router-dom";
 
 const UserDetailsModal = ({ onClose, selectedUser, handleUiToBeDisplayed }) => {
   // State for user details modal visibility
@@ -16,7 +17,7 @@ const UserDetailsModal = ({ onClose, selectedUser, handleUiToBeDisplayed }) => {
   //   End of function to close user modal
 
   return (
-    <div className="w-[500px] min-h-[500px]  h-[90%] max-h-[700px] bg-white z-[100] overflow-auto rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] flex flex-col gap-[24px] max-2xl:gap-[19.2px]">
+    <div className="w-[500px] max-lg:w-[90%] max-lg:max-w-[400px] min-h-[500px]  h-[90%] max-h-[700px] bg-white z-[100] overflow-auto rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] flex flex-col gap-[24px] max-2xl:gap-[19.2px]">
       <Overlay isOpen={isOpen} onClose={handleClose}>
         <UserModificationConfirmation
           onClose={handleClose}
@@ -105,20 +106,21 @@ const UserDetailsModal = ({ onClose, selectedUser, handleUiToBeDisplayed }) => {
         </div>
         <div className="flex">
           {selectedUser?.status === "active" && (
-            <div
-              className="px-[16px] rounded-[8px] font-bold text-white py-[8px] text-[16px] bg-mainBlue leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]"
-              onClick={() => handleUiToBeDisplayed("userPortfolio")}
-            >
-              View Portfolio
-            </div>
+            <Link to={"/users/portfolio"}>
+              <div className="px-[16px] rounded-[8px] font-bold text-white py-[8px] text-[16px] bg-mainBlue leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]">
+                View Portfolio
+              </div>
+            </Link>
           )}
           {selectedUser?.status === "inactive" && (
-            <div
-              className="px-[16px] rounded-[8px] font-bold text-blackTextColor py-[8px] text-[16px] bg-borderColor leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]"
-              onClick={() => handleUiToBeDisplayed("userPortfolio")}
-            >
-              View Portfolio
-            </div>
+            <Link to={"/users/portfolio"}>
+              <div
+                className="px-[16px] rounded-[8px] font-bold text-blackTextColor py-[8px] text-[16px] bg-borderColor leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]"
+                onClick={() => handleUiToBeDisplayed("userPortfolio")}
+              >
+                View Portfolio
+              </div>
+            </Link>
           )}
         </div>
       </div>

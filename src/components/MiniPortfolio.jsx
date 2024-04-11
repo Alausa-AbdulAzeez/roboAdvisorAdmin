@@ -22,7 +22,7 @@ const TextIconComponent = ({ textName }) => {
   );
 };
 
-const Portfolio = ({ type, ui }) => {
+const MiniPortfolio = ({ type, ui }) => {
   const data = [
     { name: "Group A", value: 500, color: "#0082E0", percentage: "10%" },
     { name: "Group B", value: 400, color: "#00E0D3", percentage: "20%" },
@@ -34,9 +34,9 @@ const Portfolio = ({ type, ui }) => {
 
   return (
     <div className="w-[100%] h-fit overflow-auto  flex justify-between bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] ">
-      <div className="flex flex-col w-[40%] gap-[32px] max-2xl:gap-[25.6px] ">
-        <div className="flex items-center gap-[32px] max-2xl:gap-[25.6px]">
-          <div className="px-[16px] flex items-center gap-[16px] rounded-[8px] font-[400] py-[8px] text-[16px] bg-backgroundBlueColor text-mainBlue leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px] max-2xl:gap-[12.8px]">
+      <div className="flex flex-col w-[40%] max-lg:w-full gap-[32px] max-2xl:gap-[25.6px] ">
+        <div className="flex max-lg:flex-col max-lg:items-start items-center gap-[32px] max-2xl:gap-[25.6px]">
+          <div className="px-[16px] max-lg:w-full flex items-center gap-[16px] rounded-[8px] font-[400] py-[8px] text-[16px] bg-backgroundBlueColor text-mainBlue leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px] max-2xl:gap-[12.8px]">
             <img
               src={moneyBag}
               alt="Savings"
@@ -44,7 +44,7 @@ const Portfolio = ({ type, ui }) => {
             />
             <div className="">Retirement Planning</div>
           </div>
-          <div className="text-blackTextColor leading-[30px] font-[700] text-[24px] max-2xl:leading-[24px]  max-2xl:text-[19.2px]">
+          <div className="text-blackTextColor  leading-[30px] font-[700] text-[24px] max-2xl:leading-[24px]  max-2xl:text-[19.2px]">
             N1,310,000.14
           </div>
         </div>
@@ -75,7 +75,17 @@ const Portfolio = ({ type, ui }) => {
             type={type}
           />
         )}
-        <div className="w-[250px] flex flex-col gap-[16px] max-2xl:gap-[12.8px] max-2xl:w-[500px ] ">
+        <div className="flex justify-end w-full">
+          <Link to={"/users/goalPerformance"}>
+            <div className="w-[24px] h-[24px] max-2xl:w-[19.2px] max-2xl:h-[19.2px] cursor-pointer">
+              <Icon
+                icon="bi:arrow-right"
+                className={` text-black w-full h-full`}
+              />
+            </div>
+          </Link>
+        </div>
+        <div className="max-lg:hidden w-[250px] flex flex-col gap-[16px] max-2xl:gap-[12.8px] max-2xl:w-[500px ] ">
           <div className="flex justify-between">
             <TextIconComponent textName="Risk Profile" />
             <div className="text-mainBlue leading-[28px] font-semibold text-[16px] max-2xl:leading-[22.4px]  max-2xl:text-[12.8px]">
@@ -101,7 +111,7 @@ const Portfolio = ({ type, ui }) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col w-[40%]  gap-[32px] max-2xl:gap-[25.6px] items-start ">
+      <div className="flex max-lg:hidden flex-col w-[40%]  gap-[32px] max-2xl:gap-[25.6px] items-start ">
         <div className="flex flex-col gap-[8px] max-2xl:gap-[6.4px]">
           <div className="text-[20px] max-2xl:text-[16px] font-[600] leading-[28px] max-2xl:leading-[22.4px] text-blackTextColor">
             Portfolio Chart
@@ -143,4 +153,4 @@ const Portfolio = ({ type, ui }) => {
   );
 };
 
-export default Portfolio;
+export default MiniPortfolio;

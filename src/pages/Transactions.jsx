@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import TransactionsTable from "../components/TransactionsTable";
+import { Outlet } from "react-router-dom";
 
 const Transactions = () => {
   // Sidebar state
@@ -413,23 +414,26 @@ const Transactions = () => {
   // Example items, to simulate fetching from another resources.
 
   return (
-    <div className="h-[100vh] flex bg-backgroundColor ">
-      <Sidebar
-        isSidebarOpen={isSidebarOpen}
-        toggleSidebar={toggleSidebar}
-        setIsSidebarOpen={setIsSidebarOpen}
-      />
-      <div className="flex-1 h-full overflow-auto relative">
-        <Topbar title={"Transactions"} toggleSidebar={toggleSidebar} />
-        <div className="w-full  min-h-full h-auto mb-[50px] bg-backgroundColor flex flex-col gap-[32px] max-2xl:gap-[25.6px] max-[300px]:zoomMax300 max-[400px]:zoomMax400 max-md:zoomMaxSm max-md:zoomMaxMd max-[850px]:zoomMax850 max-xl:zoomMaxXl ">
-          <TransactionsTable
-            tableHeaders={tableHeaders}
-            title={title}
-            items={transactions}
-          />
+    <>
+      <Outlet />
+      <div className="h-[100vh] flex bg-backgroundColor ">
+        <Sidebar
+          isSidebarOpen={isSidebarOpen}
+          toggleSidebar={toggleSidebar}
+          setIsSidebarOpen={setIsSidebarOpen}
+        />
+        <div className="flex-1 h-full overflow-auto relative">
+          <Topbar title={"Transactions"} toggleSidebar={toggleSidebar} />
+          <div className="w-full  min-h-full h-auto mb-[50px] bg-backgroundColor flex flex-col gap-[32px] max-2xl:gap-[25.6px] max-[300px]:zoomMax300 max-[400px]:zoomMax400 max-md:zoomMaxSm max-md:zoomMaxMd max-[850px]:zoomMax850 max-xl:zoomMaxXl ">
+            <TransactionsTable
+              tableHeaders={tableHeaders}
+              title={title}
+              items={transactions}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -3,7 +3,9 @@ import { accountIcon, arrowDown, bellIcon } from "../assets/icons";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 
-const Topbar = ({ title, toggleSidebar }) => {
+const Topbar = ({ title, toggleSidebar, hasIcon }) => {
+  console.log(title);
+  console.log(hasIcon);
   return (
     <>
       <div className="hidden z-[3] max-lg:flex flex-col p-[16px] pt-0 gap-[16px] w-full border border-l-0 border-[#D4D4D4] bg-white sticky top-0 ">
@@ -57,8 +59,18 @@ const Topbar = ({ title, toggleSidebar }) => {
       </div>
       <div className="max-lg:hidden max-[300px]:zoomMax300 max-[400px]:zoomMax400 max-md:zoomMaxSm max-md:zoomMaxMd max-[850px]:zoomMax850 max-xl:zoomMaxXl  z-[3]  h-[76px] px-[32px] max-2xl:h-[60.8px] max-2xl:px-[25.6px]   w-full border border-l-0 border-[#D4D4D4] bg-white flex items-center justify-between sticky top-0">
         <div className="hidden max-md:flex h-[28px] bg-white"></div>
-        <div className="text-blackTextColor text-[32px] leading-[40px] max-2xl:text-[25.6px]  max-2xl:leading-[32px] font-[700]">
-          {title}
+        <div className="text-blackTextColor flex items-center gap-[8px] text-[32px] leading-[40px] max-2xl:text-[25.6px]  max-2xl:leading-[32px] font-[700]">
+          {hasIcon && (
+            <Link to={"/users/portfolio"}>
+              <div className="w-[16px] h-[16px] flex items-center justify-center cursor-pointer ">
+                <Icon
+                  icon="mynaui:arrow-left"
+                  className={` text-blackTextColor w-full h-full`}
+                />
+              </div>
+            </Link>
+          )}
+          <span>{title}</span>
         </div>
         <div className="flex gap-[32px] max-2xl:gap-[25.6px] cursor-pointer">
           <img

@@ -52,7 +52,7 @@ const UserPortfolioGraph = () => {
   // End of function to handle timeframe selection
 
   return (
-    <div className="overflow-auto w-[50%] flex flex-col gap-[8px] bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] h-full pt-[39px]  max-2xl:pb-[9.6px] max-2xl:pt-[31.2px] ">
+    <div className="overflow-auto max-lg:w-full max-lg:h-[315px] w-[50%] flex flex-col gap-[8px] bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] h-full pt-[39px]  max-2xl:pb-[9.6px] max-2xl:pt-[31.2px] ">
       <UserPortfolioValueGraph data={data} />
       <div className="w-[90%]  h-[35px] max-2xl:h-[28px]  py-[4px] max-2xl:py-[3.2px] flex items-center ">
         <div

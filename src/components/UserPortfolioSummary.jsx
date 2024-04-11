@@ -5,7 +5,7 @@ import UserPortfolioSummaryText from "./UserPortfolioSummaryText";
 
 const UserPortfolioSummary = () => {
   return (
-    <div className="h-[373px] max-2xl:h-[298.4px]">
+    <div className="h-[373px] max-2xl:h-[298.4px] max-lg:h-fit">
       <div className="mb-[8px] flex gap-[8px] items-center ">
         <div className="text-blackTextColor text-[20px] font-[600] leading-[28px] max-2xl:text-[16px] max-2xl:leading-[22.4px] ">
           Summary
@@ -17,7 +17,7 @@ const UserPortfolioSummary = () => {
           />
         </div>
       </div>
-      <div className="flex gap-[32px] max-2xl:gap-[25.6px] h-[340px] max-2xl:h-[269.6px]">
+      <div className="flex gap-[32px] max-lg:flex-col max-2xl:gap-[25.6px] h-[340px] max-lg:h-fit max-2xl:h-[269.6px]">
         <UserPortfolioGraph />
         <UserPortfolioSummaryText />
       </div>
