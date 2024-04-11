@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { moneyBag } from "../assets/icons";
 import GoalDrift from "./GoalDrift";
 import { Icon } from "@iconify/react";
 import GeneralDoughnutChart from "./GeneralDoughnutChart";
 import PieChartLegend from "./PieChartLegend";
 import { Link } from "react-router-dom";
+import MobileDoughnutChart from "./MobileDoughnutChart";
 
 const TextIconComponent = ({ textName }) => {
   return (
@@ -33,10 +34,13 @@ const Portfolio = ({ type, ui }) => {
   ];
 
   return (
-    <div className="w-[100%] h-fit overflow-auto  flex justify-between bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] ">
-      <div className="flex flex-col w-[40%] gap-[32px] max-2xl:gap-[25.6px] ">
-        <div className="flex items-center gap-[32px] max-2xl:gap-[25.6px]">
-          <div className="px-[16px] flex items-center gap-[16px] rounded-[8px] font-[400] py-[8px] text-[16px] bg-backgroundBlueColor text-mainBlue leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px] max-2xl:gap-[12.8px]">
+    <div className="w-[100%] h-fit overflow-auto max-lg:flex-col max-lg:gap-[32px]  flex justify-between bg-white border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] ">
+      <div className="flex flex-col w-[40%] max-lg:w-full  gap-[32px] max-2xl:gap-[25.6px] ">
+        <div className="flex items-center max-lg:flex-col max-lg:items-start gap-[32px] max-2xl:gap-[25.6px]">
+          <div className="hidden max-lg:block text-[12px] text-silverTextColor">
+            Select Portfolio
+          </div>
+          <div className="px-[16px] max-lg:w-full flex items-center gap-[16px] rounded-[8px] font-[400] py-[8px] text-[16px] bg-backgroundBlueColor text-mainBlue leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px] max-2xl:gap-[12.8px]">
             <img
               src={moneyBag}
               alt="Savings"
@@ -67,6 +71,7 @@ const Portfolio = ({ type, ui }) => {
             12.9%
           </div>
         </div>
+        <div className="hidden max-lg:block max-lg:border max-lg:border-borderColor w-full"></div>
         {type === "On Course" && (
           <GoalDrift
             totalInvested={1000000}
@@ -75,6 +80,7 @@ const Portfolio = ({ type, ui }) => {
             type={type}
           />
         )}
+        <div className="hidden max-lg:block max-lg:border max-lg:border-borderColor w-full"></div>
         <div className="w-[250px] flex flex-col gap-[16px] max-2xl:gap-[12.8px] max-2xl:w-[500px ] ">
           <div className="flex justify-between">
             <TextIconComponent textName="Risk Profile" />
@@ -100,13 +106,20 @@ const Portfolio = ({ type, ui }) => {
             </div>
           </div>
         </div>
+        <div className="hidden max-lg:block max-lg:border max-lg:border-borderColor w-full"></div>
       </div>
-      <div className="flex flex-col w-[40%]  gap-[32px] max-2xl:gap-[25.6px] items-start ">
-        <div className="flex flex-col gap-[8px] max-2xl:gap-[6.4px]">
+      <div className="flex flex-col w-[40%] max-lg:w-full  gap-[32px] max-2xl:gap-[25.6px] items-start ">
+        <div className="max-lg:hidden flex flex-col gap-[8px] max-2xl:gap-[6.4px]">
           <div className="text-[20px] max-2xl:text-[16px] font-[600] leading-[28px] max-2xl:leading-[22.4px] text-blackTextColor">
             Portfolio Chart
           </div>
           <GeneralDoughnutChart />
+        </div>
+        <div className="hidden max-lg:flex flex-col items-center justify-center w-full gap-[8px] max-2xl:gap-[6.4px]">
+          <div className="w-full text-[20px] max-2xl:text-[16px] font-[600] leading-[28px] max-2xl:leading-[22.4px] text-blackTextColor">
+            Portfolio Chart
+          </div>
+          <MobileDoughnutChart />
         </div>
         <div className="w-full flex gap-[32px] max-2xl:gap-[25.6px] flex-wrap ">
           {data?.map((datum, index) => {
@@ -122,7 +135,7 @@ const Portfolio = ({ type, ui }) => {
           })}
         </div>
         {type === "On Course" && (
-          <div className="w-full text-[16px] text-right font-[400] text-silverTextColor leading-[28px] max-2xl:leading-[22.4px]  max-2xl:text-[12.8px]">
+          <div className="w-full text-[16px] text-right max-lg:text-left font-[400] text-silverTextColor leading-[28px] max-2xl:leading-[22.4px]  max-2xl:text-[12.8px]">
             Auto Deposit: N20,000 automatic deposit every month
           </div>
         )}

@@ -11,7 +11,7 @@ const AssetUpdateModal = ({ onClose, selectedUser, changeUi }) => {
   }, 3000);
 
   return (
-    <div className="z-[101] w-[565px] h-fit  bg-white overflow-auto rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] flex flex-col gap-[24px] max-2xl:gap-[19.2px] max-2xl:w-[452px] max-2xl:h-fit">
+    <div className="z-[101] w-[565px] max-lg:w-[90%] max-lg:max-w-[420px] h-fit  bg-white overflow-auto rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] flex flex-col gap-[24px] max-2xl:gap-[19.2px] max-2xl:w-[452px] max-2xl:h-fit">
       <div className="flex justify-end">
         <Icon
           onClick={onClose}

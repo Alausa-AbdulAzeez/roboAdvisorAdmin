@@ -4,7 +4,7 @@ import AssetInput from "./AssetInput";
 
 const AssetAdditionModal = ({ onClose, selectedUser, changeUi }) => {
   return (
-    <div className="z-[101] w-[565px] h-fit max-h-[90%]  bg-white overflow-auto rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] flex flex-col gap-[24px] max-2xl:gap-[19.2px] max-2xl:w-[452px] max-2xl:h-fit">
+    <div className="z-[101] w-[565px] h-fit max-h-[90%] max-lg:w-[90%] max-lg:max-w-[420px]  bg-white overflow-auto rounded-[8px] max-2xl:rounded-[6.4px] p-[24px] max-2xl:p-[19.2px] flex flex-col gap-[24px] max-2xl:gap-[19.2px] max-2xl:w-[452px] max-2xl:h-fit">
       <div className="flex justify-between items-center">
         <div className="flex gap-[8px] max-2xl:gap-[6.4px] items-center">
           <Icon

@@ -20,13 +20,10 @@ const COLORS = [
   "#005AE0",
 ];
 
-export default class GeneralDoughnutChart extends PureComponent {
+export default class MobileDoughnutChart extends PureComponent {
   render() {
-    // const { width, height, cx, cy } = this.props?.doughnutChartParams;
-    // console.log(width, height);
-
     return (
-      <PieChart width={362} height={163} onMouseEnter={this.onPieEnter}>
+      <PieChart width={180} height={163} onMouseEnter={this.onPieEnter}>
         <Pie
           data={data}
           cx={77}
