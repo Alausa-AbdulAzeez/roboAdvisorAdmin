@@ -24,6 +24,16 @@ const TextIconComponent = ({ textName }) => {
 };
 
 const Portfolio = ({ type, ui }) => {
+  // Expanded state
+  const [expanded, setExpanded] = useState(true);
+
+  // Functionaliy to expand and collpase ui
+  const handleSetExpandedState = () => {
+    setExpanded((prev) => !prev);
+  };
+
+  // Ensd of Functionaliy to expand and collpase ui
+
   const data = [
     { name: "Group A", value: 500, color: "#0082E0", percentage: "10%" },
     { name: "Group B", value: 400, color: "#00E0D3", percentage: "20%" },
@@ -80,6 +90,7 @@ const Portfolio = ({ type, ui }) => {
             type={type}
           />
         )}
+
         <div className="hidden max-lg:block max-lg:border max-lg:border-borderColor w-full"></div>
         <div className="w-[250px] flex flex-col gap-[16px] max-2xl:gap-[12.8px] max-2xl:w-[500px ] ">
           <div className="flex justify-between">
@@ -115,13 +126,21 @@ const Portfolio = ({ type, ui }) => {
           </div>
           <GeneralDoughnutChart />
         </div>
-        <div className="hidden max-lg:flex flex-col items-center justify-center w-full gap-[8px] max-2xl:gap-[6.4px]">
+        <div
+          className={`hidden  flex-col ${
+            expanded ? "max-lg:flex" : ""
+          } items-center justify-center w-full gap-[8px] max-2xl:gap-[6.4px]`}
+        >
           <div className="w-full text-[20px] max-2xl:text-[16px] font-[600] leading-[28px] max-2xl:leading-[22.4px] text-blackTextColor">
             Portfolio Chart
           </div>
           <MobileDoughnutChart />
         </div>
-        <div className="w-full flex gap-[32px] max-2xl:gap-[25.6px] flex-wrap ">
+        <div
+          className={`w-full ${
+            expanded ? "flex" : "hidden"
+          }  flex gap-[32px] max-2xl:gap-[25.6px] flex-wrap`}
+        >
           {data?.map((datum, index) => {
             const { color, name, percentage } = datum;
             return (
@@ -134,6 +153,26 @@ const Portfolio = ({ type, ui }) => {
             );
           })}
         </div>
+        <div
+          className="hidden max-md:flex gap-[8px] text-mainBlue w-full items-center justify-center"
+          onClick={handleSetExpandedState}
+        >
+          {expanded ? "Collapse" : "Expand"}
+          <span className="w-[16px] h-[16px]">
+            {expanded ? (
+              <Icon
+                icon="ep:arrow-up"
+                className={`w-[100%] h-[100%] text-blackTextColor`}
+              />
+            ) : (
+              <Icon
+                icon="ep:arrow-down"
+                className={`w-[100%] h-[100%] text-blackTextColor`}
+              />
+            )}
+          </span>
+        </div>
+
         {type === "On Course" && (
           <div className="w-full text-[16px] text-right max-lg:text-left font-[400] text-silverTextColor leading-[28px] max-2xl:leading-[22.4px]  max-2xl:text-[12.8px]">
             Auto Deposit: N20,000 automatic deposit every month
