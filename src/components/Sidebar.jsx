@@ -107,7 +107,6 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, setIsSidebarOpen }) => {
     }
     // Update the state of Activity Log based on whether any sublink is active
   }, [location]);
-  console.log(isActivityLogOpen);
   // Useeffect to store activity log status
   useEffect(() => {
     const activityLog = sessionStorage.setItem(
@@ -234,9 +233,9 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, setIsSidebarOpen }) => {
                 icon="ep:arrow-up-bold"
                 className={`mr-[32px] max-2xl:mr-[25.6px] max-2xl:h-[12.8px] max-2xl:w-[12.8px] ${
                   isActivityLogParentActive
-                    ? "transform rotate-180 text-mainBlue"
+                    ? " text-mainBlue"
                     : "text-blackTextColor"
-                }`}
+                } ${isActivityLogOpen && "transform rotate-180"}`}
               />
             </div>
           </div>
