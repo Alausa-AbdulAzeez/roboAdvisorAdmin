@@ -68,7 +68,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, setIsSidebarOpen }) => {
 
   // Activity log state
   const [isActivityLogOpen, setIsActivityLogOpen] = useState(
-    sessionStorage.getItem("activityLogStatus")
+    JSON.parse(sessionStorage.getItem("activityLogStatus")) || false
   );
   // Activity log state
   const [isActivityLogParentActive, setIsActivityLogParentActive] = useState(
@@ -89,10 +89,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, setIsSidebarOpen }) => {
 
   // Function to toggle activitylog status
   const toggleActivityLog = () => {
-    setIsActivityLogOpen(!isActivityLogOpen);
-    if (!location.pathname.includes("/activityLog")) {
-      navigte("/activityLog/admin");
-    }
+    const convertedActivityLog = JSON.parse(isActivityLogOpen);
+    setIsActivityLogOpen(!convertedActivityLog);
+    sessionStorage.setItem("activityLogStatus", !convertedActivityLog);
+    // if (!location.pathname.includes("/activityLog")) {
+    //   navigte("/activityLog/admin");
+    // }
   };
   // End of function to toggle activitylog status
 
@@ -105,10 +107,19 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, setIsSidebarOpen }) => {
     }
     // Update the state of Activity Log based on whether any sublink is active
   }, [location]);
-
+  console.log(isActivityLogOpen);
   // Useeffect to store activity log status
   useEffect(() => {
-    sessionStorage.setItem("activityLogStatus", isActivityLogOpen);
+    const activityLog = sessionStorage.setItem(
+      "activityLogStatus",
+      isActivityLogOpen
+    );
+
+    if (activityLog === "null") {
+      sessionStorage.setItem("activityLogStatus", false);
+    } else {
+      return activityLog;
+    }
   }, [isActivityLogOpen]);
 
   // USE EFFECT TO CHECK SCREEN SIZE AND SET SIDEBAR STATE
@@ -132,6 +143,8 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar, setIsSidebarOpen }) => {
       window.removeEventListener("resize", handleResize);
     };
   }, [isSidebarOpen]); // Empty dependency array ensures the effect runs only once during mount
+
+  console.log(typeof JSON.parse(isActivityLogOpen));
 
   return (
     <>
