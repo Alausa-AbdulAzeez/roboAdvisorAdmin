@@ -406,11 +406,11 @@ const PortfoliosTable = () => {
                             >
                               View Details
                             </div>
-                            <Link to={"/users/portfolio"}>
-                              <div className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-br-[8px] rounded-bl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-br-[8px] max-2xl:rounded-bl-[8px]">
+                            <div className="flex flex-1 items-center border-b border-b-[#D4D4D4] cursor-pointer hover:bg-[#D4D4D4] px-[16px] text-[16px] leading-[28px] rounded-br-[8px] rounded-bl-[8px] max-2xl:px-[12.8px] max-2xl:text-[12.8px] max-2xl:leading-[28px] max-2xl:rounded-br-[8px] max-2xl:rounded-bl-[8px]">
+                              <Link to={"/users/portfolio"}>
                                 View Full Portfolio
-                              </div>
-                            </Link>
+                              </Link>
+                            </div>
                           </div>
                         )}
                       </td>
