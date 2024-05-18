@@ -64,12 +64,13 @@
 
 // export default Login;
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { blueBubble } from "../assets/images";
 import { Icon } from "@iconify/react";
 import { publicRequest } from "../utils/requestMethods";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const Login = () => {
   // State for email, password, password visibility, and loading state
@@ -129,16 +130,18 @@ const Login = () => {
         });
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
       toast.update(toastId.current, {
         type: "error",
-        autoClose: 3000,
+        autoClose: 1500,
         isLoading: false,
         render: `${
           error?.response?.data?.message ||
           "Something went wrong, please try again"
         }`,
       });
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
     }
 
     // Simulate API call
@@ -163,7 +166,7 @@ const Login = () => {
           Robovisor Admin
         </div>
         <form
-          className="ml-[200px] max-md:ml-[16px] items-start max-2xl:ml-[169.31px] mt-[100px] max-2xl:mt-[84.7px] flex flex-col gap-[32px] max-2xl:gap-[27.1px] w-[463px] max-2xl:w-[392px] max-md:w-[90%] max-md:overflow-y-auto"
+          className="ml-[200px] max-md:ml-[16px] items-start max-2xl:ml-[169.31px] mt-[100px] max-2xl:mt-[84.7px] max-md:mt-[27px] flex flex-col gap-[32px] max-2xl:gap-[27.1px] w-[463px] max-2xl:w-[392px] max-md:w-[90%] max-md:overflow-y-auto"
           onSubmit={handleSubmit}
         >
           <div className="font-bold text-blackTextColor leading-[40px] max-2xl:leading-[34px] text-[32px] max-2xl:text-[27.1px]">
@@ -203,7 +206,9 @@ const Login = () => {
               !isLoading &&
               "hover:bg-mainBlue hover:text-white transition-all"
             } max-2xl:rounded-[6.77px]  ${
-              !isFormValid || isLoading ? "opacity-50 cursor-not-allowed" : ""
+              !isFormValid || isLoading
+                ? "cursor-not-allowed"
+                : "bg-mainBlue text-white"
             }`}
             disabled={!isFormValid || isLoading}
           >
