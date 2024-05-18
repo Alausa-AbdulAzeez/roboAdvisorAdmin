@@ -3,6 +3,9 @@ import averageMobile from "./averageMobile.svg";
 import offCourseMobile from "./offCourseMobile.svg";
 import onCourseMobile from "./onCourseMobile.svg";
 import sumMobile from "./sumMobile.svg";
+import signUp from "./signUp.svg";
+import blueBubble from "./blueBubble.svg";
+import bigBlueBubble from "./bigBlueBubble.svg";
 
 export {
   profilePicture,
@@ -10,4 +13,7 @@ export {
   offCourseMobile,
   onCourseMobile,
   sumMobile,
+  signUp,
+  blueBubble,
+  bigBlueBubble,
 };
