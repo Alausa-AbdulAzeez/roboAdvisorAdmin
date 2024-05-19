@@ -20,4 +20,5 @@ export const publicRequest = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });

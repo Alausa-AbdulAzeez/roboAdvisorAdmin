@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
-import { baseUrl } from "../utils/config";
 import { useDispatch, useSelector } from "react-redux";
 import { loggedOut } from "../redux/globalSlice";
+import { baseUrl } from "../utils/config";
 
 /**
  * PrivateRoutes component protects routes that require authentication.
@@ -18,9 +18,6 @@ const PrivateRoutes = () => {
   // Get logged-in state of the user from Redux store
   const { isLoggedIn } = useSelector((state) => state?.globalState);
 
-  // Get the authentication token from Redux store
-  const token = useSelector((state) => state?.globalState?.user?.token);
-
   // Setup request headers with authentication token
   const headers = {
     "Content-Type": "application/json",
@@ -32,14 +29,11 @@ const PrivateRoutes = () => {
       const cancelToken = axios.CancelToken.source();
 
       try {
-        const response = await axios.post(
-          `${baseUrl}/users/checkAuthStatus`,
-          { token },
-          {
-            cancelToken: cancelToken.token,
-            headers: headers,
-          }
-        );
+        const response = await axios.get(`${baseUrl}/user/checkAuthStatus`, {
+          cancelToken: cancelToken.token,
+          headers: headers,
+          withCredentials: true,
+        });
 
         // Check if the user is not authenticated and dispatch logout action
         if (!response?.data?.authenticated) {

@@ -71,8 +71,17 @@ import { publicRequest } from "../utils/requestMethods";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loggedIn, loginSuccess } from "../redux/globalSlice";
 
 const Login = () => {
+  // MISCELLANEOUS
+  // REACT ROUTER DOM
+  const navigate = useNavigate();
+  // REDUX TOOL KIT
+  const dispatch = useDispatch();
+
   // State for email, password, password visibility, and loading state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -117,13 +126,13 @@ const Login = () => {
             autoClose: 1200,
           });
 
-          // dispatch(loggedIn());
-          // dispatch(loginSuccess(res?.data));
+          dispatch(loggedIn());
+          dispatch(loginSuccess(res?.data));
           setIsLoading(false);
 
-          // setTimeout(() => {
-          //   navigate("/");
-          // }, 500);
+          setTimeout(() => {
+            navigate("/");
+          }, 500);
         })
         .catch((err) => {
           throw err;
@@ -144,13 +153,8 @@ const Login = () => {
       }, 2000);
     }
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
     // Process the response (here you would handle the actual response)
     // alert("Login successful!");
-
-    setIsLoading(false);
   };
 
   return (
