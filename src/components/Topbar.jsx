@@ -1,13 +1,89 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { accountIcon, arrowDown, bellIcon } from "../assets/icons";
 import { Icon } from "@iconify/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { publicRequest } from "../utils/requestMethods";
+import { loggedOut } from "../redux/globalSlice";
+import Overlay from "./Overlay";
+import LogoutConfirmationModal from "./LogoutConfirmationModal";
 
 const Topbar = ({ title, toggleSidebar, hasIcon }) => {
-  console.log(title);
-  console.log(hasIcon);
+  // MISCELLANEOUS
+  // REACT ROUTER DOM
+  const navigate = useNavigate();
+  // REDUX TOOL KIT
+  const dispatch = useDispatch();
+
+  // State to check if profile was clicked
+  const [clickedProfile, setClickedProfile] = useState(false);
+
+  // State of logout confirmation modal
+  const [isOpen, setIsOpen] = useState(false);
+
+  //   Ref linked to the select profile pop up element
+  const profilePopupRef = useRef(null);
+
+  // Function to close user details modal
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+  // End of function to close user details modal
+
+  // FUNCTION TO HANDLE USER LOGOUT
+  const handleLogout = async () => {
+    try {
+      await publicRequest
+        .get("auth/logout")
+        .then(() => {
+          dispatch(loggedOut());
+          navigate("/login");
+        })
+        .catch((err) => {
+          throw err;
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // END OF FUNCTION TO HANDLE USER LOGOUT
+
+  // FUNCTION TO HANDLE PROFILE DROPDOWN  TOGGLE
+  const handleClickedProfile = (event) => {
+    console.log(clickedProfile);
+    // Check if the click occurred on the Profile toggle element
+    if (event.target.classList.contains("profileToggle")) {
+      console.log("aa");
+      setClickedProfile((prev) => !prev);
+    } else {
+      // If not, check if the click occurred outside the ProfileHolder
+      if (
+        profilePopupRef.current &&
+        !profilePopupRef.current.contains(event.target)
+      ) {
+        setClickedProfile(false);
+      }
+    }
+  };
+  // END OF FUNCTION TO HANDLE TIMEFRAME DROPDOWN  TOGGLE
+
+  // USE EFFECT TO HANDLE CLICKS AWAY FROM THE PREFERRED DETAILS HANDLER
+  useEffect(() => {
+    // Add event listener when the component mounts
+    document.addEventListener("click", handleClickedProfile, true);
+
+    // Remove event listener when the component unmounts
+    return () => {
+      document.removeEventListener("click", handleClickedProfile, true);
+    };
+  }, []);
+  // END OF USE EFFECT TO HANDLE CLICKS AWAY FROM THE PREFERRED DETAILS HANDLER
+
   return (
     <>
+      <Overlay isOpen={isOpen} onClose={handleClose}>
+        <LogoutConfirmationModal onClose={handleClose} logout={handleLogout} />
+      </Overlay>
       <div className="hidden z-[3] max-lg:flex flex-col p-[16px] pt-0 gap-[16px] w-full border border-l-0 border-[#D4D4D4] bg-white sticky top-0 ">
         <div className="flex justify-between">
           <div
@@ -33,17 +109,37 @@ const Topbar = ({ title, toggleSidebar, hasIcon }) => {
           <div className="text-blackTextColor text-[32px] leading-[40px] max-2xl:text-[25.6px]  max-2xl:leading-[32px] font-[700]">
             {title}
           </div>
-          <div className="flex gap-[32px] max-2xl:gap-[25.6px] cursor-pointer">
+          <div className="relative flex gap-[32px] max-2xl:gap-[25.6px] cursor-pointer">
+            {clickedProfile && (
+              <div
+                ref={profilePopupRef}
+                onClick={() => setIsOpen(true)}
+                className="absolute flex flex-col top-[48px] right-0  bg-white hover:bg-[#e6e6e6]  border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] shadow-accountDropShadow"
+              >
+                {/* <div className="absolute flex flex-col top-[76px] right-0 max-2xl:top-[49.6px] py-[8px] max-2xl:py-[6.4px] bg-white  border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] shadow-accountDropShadow"> */}
+                <div className="relative flex gap-[8px] max-2xl:gap-[6.4px] items-center px-[24px] py-[16px] max-2xl:px-[19.2px] max-2xl:py-[12.8px] w-[238px] max-2xl:w-[190.4px] box-border">
+                  <Icon
+                    icon="clarity:logout-line"
+                    className="max-2xl:h-[19.2px] max-2xl:w-[19.2px] "
+                  />
+
+                  <div className="font-[400] text-[16px] leading-[28px] max-2xl:text-[12.8px] max-2xl:leading-[22.4px] text-nowrap">
+                    Logout
+                  </div>
+                  {/* <div className="absolute bottom-0 h-[1px] mx-auto w-[78%] bg-borderColor"></div> */}
+                </div>
+              </div>
+            )}
             <img
               src={bellIcon}
               alt="notifications"
               className="cursor-pointer max-2xl:h-[25.6px] max-2xl:w-[25.6px] "
             />
-            <div className="flex gap-[8px] max-2xl:gap-[6.4px] items-center">
+            <div className="profileToggle flex gap-[8px] max-2xl:gap-[6.4px] items-center">
               <img
                 src={accountIcon}
                 alt="account"
-                className="max-2xl:h-[19.2px] max-2xl:w-[19.2px] "
+                className="profileToggle max-2xl:h-[19.2px] max-2xl:w-[19.2px] "
               />
               <div className=" max-md:hidden font-[400] text-[16px] leading-[28px] max-2xl:text-[12.8px] max-2xl:leading-[22.4px] text-nowrap">
                 Bonmichael Udeh
@@ -51,7 +147,7 @@ const Topbar = ({ title, toggleSidebar, hasIcon }) => {
               <img
                 src={arrowDown}
                 alt="arrowDonw"
-                className="max-2xl:h-[12.8px] max-2xl:w-[12.8px]   text-blackTextColor"
+                className="profileToggle max-2xl:h-[12.8px] max-2xl:w-[12.8px]   text-blackTextColor"
               />
             </div>
           </div>
@@ -72,25 +168,45 @@ const Topbar = ({ title, toggleSidebar, hasIcon }) => {
           )}
           <span>{title}</span>
         </div>
-        <div className="flex gap-[32px] max-2xl:gap-[25.6px] cursor-pointer">
+        <div className=" flex gap-[32px] max-2xl:gap-[25.6px] cursor-pointer relative">
+          {clickedProfile && (
+            <div
+              ref={profilePopupRef}
+              onClick={() => setIsOpen(true)}
+              className="absolute flex flex-col top-[76px] right-0 max-2xl:top-[49.6px]  bg-white hover:bg-[#EEEEEE]  border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] shadow-accountDropShadow w-[192.39px] max-2xl:w-[153.9px] box-border"
+            >
+              {/* <div className="absolute flex flex-col top-[76px] right-0 max-2xl:top-[49.6px] py-[8px] max-2xl:py-[6.4px] bg-white  border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] shadow-accountDropShadow"> */}
+              <div className="relative flex gap-[8px] max-2xl:gap-[6.4px] items-center px-[24px] py-[16px] max-2xl:px-[19.2px] max-2xl:py-[12.8px] ">
+                <Icon
+                  icon="clarity:logout-line"
+                  className="max-2xl:h-[19.2px] max-2xl:w-[19.2px] "
+                />
+
+                <div className=" max-md:hidden font-[400] text-[16px] leading-[28px] max-2xl:text-[12.8px] max-2xl:leading-[22.4px] text-nowrap">
+                  Logout
+                </div>
+                {/* <div className="absolute bottom-0 h-[1px] mx-auto w-[78%] bg-borderColor"></div> */}
+              </div>
+            </div>
+          )}
           <img
             src={bellIcon}
             alt="notifications"
             className="cursor-pointer max-2xl:h-[25.6px] max-2xl:w-[25.6px] "
           />
-          <div className="flex gap-[8px] max-2xl:gap-[6.4px] items-center">
+          <div className="profileToggle flex gap-[8px] max-2xl:gap-[6.4px] items-center">
             <img
               src={accountIcon}
               alt="account"
-              className="max-2xl:h-[19.2px] max-2xl:w-[19.2px] "
+              className="max-2xl:h-[19.2px] max-2xl:w-[19.2px] profileToggle"
             />
-            <div className=" max-md:hidden font-[400] text-[16px] leading-[28px] max-2xl:text-[12.8px] max-2xl:leading-[22.4px] text-nowrap">
+            <div className=" profileToggle max-md:hidden font-[400] text-[16px] leading-[28px] max-2xl:text-[12.8px] max-2xl:leading-[22.4px] text-nowrap">
               Bonmichael Udeh
             </div>
             <img
               src={arrowDown}
               alt="arrowDonw"
-              className="max-2xl:h-[12.8px] max-2xl:w-[12.8px]   text-blackTextColor"
+              className="profileToggle max-2xl:h-[12.8px] max-2xl:w-[12.8px] text-blackTextColor"
             />
           </div>
         </div>
@@ -100,39 +216,3 @@ const Topbar = ({ title, toggleSidebar, hasIcon }) => {
 };
 
 export default Topbar;
-// import React from "react";
-// import { accountIcon, arrowDown, bellIcon } from "../assets/icons";
-
-// const Topbar = ({ title }) => {
-//   return (
-//     <div className="z-[2]  h-[76px] px-[32px] max-2xl:h-[60.8px] max-2xl:px-[25.6px] max-lg:h-[52.38px] max-lg:px-[21.67px] max-md:h-[39.29px] max-md:px-[16.25px] max-md:h-[32.24px] max-md:px-[13.54px]  w-full border border-[#D4D4D4] bg-white flex items-center justify-between sticky top-0">
-//       <div className="text-blackTextColor text-[32px] leading-[40px] max-2xl:text-[25.6px]  max-2xl:leading-[32px] max-lg:text-[21.67px]  max-lg:leading-[27.1px] max-md:text-[16.25px]  max-md:leading-[20.3px] max-md:text-[13.54px]  max-md:leading-[16.9px] font-[700]">
-//         {title}
-//       </div>
-//       <div className="flex gap-[32px] max-2xl:gap-[25.6px] max-lg:gap-[21.67px] max-md:gap-[16.25px] max-md:gap-[13.54px] cursor-pointer">
-//         <img
-//           src={bellIcon}
-//           alt="notifications"
-//           className="cursor-pointer max-2xl:h-[25.6px] max-2xl:w-[25.6px] max-lg:h-[21.67px] max-lg:w-[21.67px] max-md:h-[16.25px] max-md:w-[16.25px] max-md:h-[13.54px] max-md:w-[13.54px]"
-//         />
-//         <div className="flex gap-[8px] max-2xl:gap-[6.4px] max-lg:gap-[5.42px] max-md:gap-[4.06px] max-md:gap-[3px] items-center">
-//           <img
-//             src={accountIcon}
-//             alt="account"
-//             className="max-2xl:h-[19.2px] max-2xl:w-[19.2px] max-lg:h-[16.25px] max-lg:w-[16.25px] max-md:h-[12.19px] max-md:w-[12.19px]  max-md:h-[10.16px] max-md:w-[10.16px]"
-//           />
-//           <div className="font-[400] text-[16px] leading-[28px] max-2xl:text-[12.8px] max-2xl:leading-[22.4px] max-lg:text-[10.84px] max-lg:leading-[19px] max-md:text-[8.13px] max-md:leading-[14.2px] max-md:text-[6.77px] max-md:leading-[11.9px] text-nowrap">
-//             Bonmichael Udeh
-//           </div>
-//           <img
-//             src={arrowDown}
-//             alt="arrowDonw"
-//             className="max-2xl:h-[12.8px] max-2xl:w-[12.8px]  max-lg:h-[10.84px] max-lg:w-[10.84px] max-md:h-[8.13px] max-md:w-[8.13px] max-md:h-[6.77px] max-md:w-[6.77px] text-blackTextColor"
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Topbar;

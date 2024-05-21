@@ -5,6 +5,10 @@ export default {
     extend: {
       boxShadow: {
         activeInputBlueBoxShadow: "0px 0px 6px 0px #005AE099",
+        accountDropShadow: "0px 4px 16px 0px #00000026",
+      },
+      dropShadow: {
+        accountDropShadow: "0px 4px 16px 0px #00000026",
       },
       colors: {
         mainBlue: "#005AE0",
