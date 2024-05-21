@@ -7,6 +7,8 @@ import { publicRequest } from "../utils/requestMethods";
 import { loggedOut } from "../redux/globalSlice";
 import Overlay from "./Overlay";
 import LogoutConfirmationModal from "./LogoutConfirmationModal";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Topbar = ({ title, toggleSidebar, hasIcon }) => {
   // MISCELLANEOUS
@@ -14,6 +16,9 @@ const Topbar = ({ title, toggleSidebar, hasIcon }) => {
   const navigate = useNavigate();
   // REDUX TOOL KIT
   const dispatch = useDispatch();
+
+  // Toast
+  const toastId = useRef(null);
 
   // GET LOGGED IN  USER
   const { data: loggedInUser } = useSelector(
@@ -40,16 +45,35 @@ const Topbar = ({ title, toggleSidebar, hasIcon }) => {
   // FUNCTION TO HANDLE USER LOGOUT
   const handleLogout = async () => {
     try {
+      toastId.current = toast("Please wait while we sign you out...", {
+        autoClose: false,
+        isLoading: true,
+        position: "bottom-right",
+      });
+
       await publicRequest
         .get("auth/logout")
         .then(() => {
+          toast.update(toastId.current, {
+            render: "Successfully signed out",
+            type: "success",
+            isLoading: false,
+            autoClose: 1200,
+          });
           dispatch(loggedOut());
           navigate("/login");
         })
         .catch((err) => {
+          navigate("/login");
           throw err;
         });
     } catch (error) {
+      toast.update(toastId.current, {
+        render: "Successfully signed out",
+        type: "success",
+        isLoading: false,
+        autoClose: 1200,
+      });
       console.log(error);
     }
   };
@@ -57,16 +81,15 @@ const Topbar = ({ title, toggleSidebar, hasIcon }) => {
 
   // FUNCTION TO HANDLE PROFILE DROPDOWN  TOGGLE
   const handleClickedProfile = (event) => {
-    console.log(clickedProfile);
     // Check if the click occurred on the Profile toggle element
     if (event.target.classList.contains("profileToggle")) {
-      console.log("aa");
       setClickedProfile((prev) => !prev);
     } else {
       // If not, check if the click occurred outside the ProfileHolder
       if (
         profilePopupRef.current &&
-        !profilePopupRef.current.contains(event.target)
+        !profilePopupRef.current.contains(event.target) &&
+        !event.target.classList.contains("miniLogout")
       ) {
         setClickedProfile(false);
       }
@@ -88,6 +111,7 @@ const Topbar = ({ title, toggleSidebar, hasIcon }) => {
 
   return (
     <>
+      <ToastContainer />
       <Overlay isOpen={isOpen} onClose={handleClose}>
         <LogoutConfirmationModal onClose={handleClose} logout={handleLogout} />
       </Overlay>
@@ -112,19 +136,19 @@ const Topbar = ({ title, toggleSidebar, hasIcon }) => {
             />
           </div>
         </div>
-        <div className="z-[3] flex items-center justify-between ">
+        <div className="z-[999] flex items-center justify-between ">
           <div className="text-blackTextColor text-[32px] leading-[40px] max-2xl:text-[25.6px]  max-2xl:leading-[32px] font-[700]">
             {title}
           </div>
           <div className="relative flex gap-[32px] max-2xl:gap-[25.6px] cursor-pointer">
             {clickedProfile && (
-              <div
-                ref={profilePopupRef}
-                onClick={() => setIsOpen(true)}
-                className="absolute flex flex-col top-[48px] right-0  bg-white hover:bg-[#e6e6e6]  border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] shadow-accountDropShadow"
-              >
+              <div className="absolute flex flex-col top-[48px] right-0  bg-white hover:bg-[#e6e6e6]  border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] shadow-accountDropShadow">
                 {/* <div className="absolute flex flex-col top-[76px] right-0 max-2xl:top-[49.6px] py-[8px] max-2xl:py-[6.4px] bg-white  border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] shadow-accountDropShadow"> */}
-                <div className="relative flex gap-[8px] max-2xl:gap-[6.4px] items-center px-[24px] py-[16px] max-2xl:px-[19.2px] max-2xl:py-[12.8px] w-[238px] max-2xl:w-[190.4px] box-border">
+                <div
+                  onClick={() => setIsOpen(true)}
+                  ref={profilePopupRef}
+                  className="miniLogout relative flex gap-[8px] max-2xl:gap-[6.4px] items-center px-[24px] py-[16px] max-2xl:px-[19.2px] max-2xl:py-[12.8px] w-[238px] max-2xl:w-[190.4px] box-border"
+                >
                   <Icon
                     icon="clarity:logout-line"
                     className="max-2xl:h-[19.2px] max-2xl:w-[19.2px] "
@@ -177,13 +201,13 @@ const Topbar = ({ title, toggleSidebar, hasIcon }) => {
         </div>
         <div className=" flex gap-[32px] max-2xl:gap-[25.6px] cursor-pointer relative">
           {clickedProfile && (
-            <div
-              ref={profilePopupRef}
-              onClick={() => setIsOpen(true)}
-              className="absolute flex flex-col top-[76px] right-0 max-2xl:top-[49.6px]  bg-white hover:bg-[#EEEEEE]  border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] shadow-accountDropShadow w-[192.39px] max-2xl:w-[153.9px] box-border"
-            >
+            <div className="absolute flex flex-col top-[76px] right-0 max-2xl:top-[49.6px]  bg-white hover:bg-[#EEEEEE]  border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] shadow-accountDropShadow w-[192.39px] max-2xl:w-[153.9px] box-border">
               {/* <div className="absolute flex flex-col top-[76px] right-0 max-2xl:top-[49.6px] py-[8px] max-2xl:py-[6.4px] bg-white  border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] shadow-accountDropShadow"> */}
-              <div className="relative flex gap-[8px] max-2xl:gap-[6.4px] items-center px-[24px] py-[16px] max-2xl:px-[19.2px] max-2xl:py-[12.8px] ">
+              <div
+                ref={profilePopupRef}
+                onClick={() => setIsOpen(true)}
+                className="relative flex gap-[8px] max-2xl:gap-[6.4px] items-center px-[24px] py-[16px] max-2xl:px-[19.2px] max-2xl:py-[12.8px] "
+              >
                 <Icon
                   icon="clarity:logout-line"
                   className="max-2xl:h-[19.2px] max-2xl:w-[19.2px] "
