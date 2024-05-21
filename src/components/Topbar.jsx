@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { accountIcon, arrowDown, bellIcon } from "../assets/icons";
 import { Icon } from "@iconify/react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { publicRequest } from "../utils/requestMethods";
 import { loggedOut } from "../redux/globalSlice";
 import Overlay from "./Overlay";
@@ -14,6 +14,13 @@ const Topbar = ({ title, toggleSidebar, hasIcon }) => {
   const navigate = useNavigate();
   // REDUX TOOL KIT
   const dispatch = useDispatch();
+
+  // GET LOGGED IN  USER
+  const { data: loggedInUser } = useSelector(
+    (state) => state?.globalState?.user
+  );
+
+  const { firstname, surname } = loggedInUser;
 
   // State to check if profile was clicked
   const [clickedProfile, setClickedProfile] = useState(false);
@@ -142,7 +149,7 @@ const Topbar = ({ title, toggleSidebar, hasIcon }) => {
                 className="profileToggle max-2xl:h-[19.2px] max-2xl:w-[19.2px] "
               />
               <div className=" max-md:hidden font-[400] text-[16px] leading-[28px] max-2xl:text-[12.8px] max-2xl:leading-[22.4px] text-nowrap">
-                Bonmichael Udeh
+                {firstname} {surname}
               </div>
               <img
                 src={arrowDown}
@@ -201,7 +208,7 @@ const Topbar = ({ title, toggleSidebar, hasIcon }) => {
               className="max-2xl:h-[19.2px] max-2xl:w-[19.2px] profileToggle"
             />
             <div className=" profileToggle max-md:hidden font-[400] text-[16px] leading-[28px] max-2xl:text-[12.8px] max-2xl:leading-[22.4px] text-nowrap">
-              Bonmichael Udeh
+              {firstname} {surname}
             </div>
             <img
               src={arrowDown}
