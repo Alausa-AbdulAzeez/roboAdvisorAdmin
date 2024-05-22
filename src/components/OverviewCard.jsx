@@ -1,6 +1,7 @@
 import React from "react";
 import { sum } from "../assets/icons";
 import PercentageIndicator from "./PercentageIndicator";
+import Skeleton from "react-loading-skeleton";
 
 const OverviewCard = ({
   title,
@@ -14,6 +15,7 @@ const OverviewCard = ({
   absolutePosition,
   cardName,
   index,
+  loadingOverviewData,
 }) => {
   return (
     <div
@@ -35,17 +37,27 @@ const OverviewCard = ({
         <div className="uppercase font-[400] text-[14px] max-2xl:text-[11.2px] leading-[28px] max-2xl:leading-[22.4px]">
           {title}
         </div>
-        <div
-          className={`font-[700] ${
-            index === 1
-              ? "text-[32px] text-mainBlue max-2xl:text-[25.6px] max-md:text-[24px]"
-              : "text-[24px] text-blackTextColor max-2xl:text-[19.2px] max-md:text-[20px]"
-          }  leading-[40px] max-2xl:leading-[32px] `}
-        >
-          {amount}
-        </div>
+        {loadingOverviewData ? (
+          <Skeleton />
+        ) : (
+          <div
+            className={`font-[700] ${
+              index === 1
+                ? "text-[32px] text-mainBlue max-2xl:text-[25.6px] max-md:text-[24px]"
+                : "text-[24px] text-blackTextColor max-2xl:text-[19.2px] max-md:text-[20px]"
+            }  leading-[40px] max-2xl:leading-[32px] `}
+          >
+            {amount}
+          </div>
+        )}
+
         <div className="flex items-center gap-[8px] max-2xl:gap-[6.4px] mt-[4px] max-2xl:mt-[3.2px]">
-          <PercentageIndicator type={percentType} text={percentText} />
+          {loadingOverviewData ? (
+            <Skeleton width={50} />
+          ) : (
+            <PercentageIndicator type={percentType} text={percentText} />
+          )}
+
           <div className="font-[400] text-[14px] max-2xl:text-[11.2px] max-md:text-[12px]  leading-[18px] max-2xl:leading-[14.4px] text-silverTextColor">
             {time}
           </div>
