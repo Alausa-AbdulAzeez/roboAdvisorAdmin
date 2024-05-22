@@ -33,40 +33,46 @@ const Overview = () => {
   const [errorLoadingOverviewData, setErrorLoadingOverviewData] =
     useState(false);
 
-  useEffect(() => {
-    const fetchDasboardData = async () => {
-      setLoadingOverviewData(true);
+  const fetchDasboardData = async () => {
+    setLoadingOverviewData(true);
+    setErrorLoadingOverviewData(false);
 
-      try {
-        const { data } = await publicRequest.get(
-          "admin/dashboard/getPortfolioData"
-        );
-        if (data) {
-          setOverviewData(data);
-          errorLoadingOverviewData && setErrorLoadingOverviewData(false);
-          setLoadingOverviewData(false);
-        }
-      } catch (error) {
-        console.log(error);
-        if (error?.response?.status === 401) {
-          toast(
-            "You're not authenticated. You'll be redirected to the login page.",
-            {
-              autoClose: false,
-              isLoading: true,
-              position: "bottom-right",
-              type: "error",
-            }
-          );
-          dispatch(loggedOut());
-          navigate("/login");
-        }
+    try {
+      const { data } = await publicRequest.get(
+        "admin/dashboard/getPortfolioData"
+      );
+      if (data) {
+        console.log(data);
+        setOverviewData(data);
+        // errorLoadingOverviewData && setErrorLoadingOverviewData(false);
+        setLoadingOverviewData(false);
       }
-    };
+    } catch (error) {
+      console.log(error);
+      setLoadingOverviewData(false);
+      setErrorLoadingOverviewData(true);
+      if (error?.response?.status === 401) {
+        toast(
+          "You're not authenticated. You'll be redirected to the login page.",
+          {
+            autoClose: false,
+            isLoading: true,
+            position: "bottom-right",
+            type: "error",
+          }
+        );
+        dispatch(loggedOut());
+        navigate("/login");
+      }
+    }
+  };
+
+  useEffect(() => {
     fetchDasboardData();
   }, []);
 
   console.log(loadingOverviewData);
+  console.log(errorLoadingOverviewData);
 
   return (
     <div className="w-full">
@@ -81,8 +87,13 @@ const Overview = () => {
       </div>
       <div className="w-full h-[337px] max-2xl:h-[269.6px] max-md:h-fit p-[24px] max-2xl:p-[19.2px] max-md:p-[16px] bg-white relative border border-borderColor rounded-[8px] max-2xl:rounded-[6.4px] flex-wrap">
         {!loadingOverviewData && errorLoadingOverviewData && (
-          <div className="text-mainBlue leading-[28px] max-2xl:leading-[22.4px] text-[16px] max-2xl:text-[12.8px] max-md:text-[16px] font-[700] cursor-pointer hover:underline">
-            Reload
+          <div className="  h-full flex items-center justify-center">
+            <div
+              className="px-[16px] text-mainBlue hover:text-white hover:bg-mainBlue rounded-[8px] font-bold py-[8px] text-[16px] bg-[#fff] border border-mainBlue  text-center leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]"
+              onClick={fetchDasboardData}
+            >
+              Click to reload
+            </div>
           </div>
         )}
 
@@ -92,7 +103,7 @@ const Overview = () => {
               <>
                 <OverviewCard
                   title={"Total Portfolio value"}
-                  amount={"N300,810,565"}
+                  amount={overvierData?.totalPortfolioValue}
                   time={"This Week"}
                   img={sum}
                   cardName={"sum"}
