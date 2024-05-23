@@ -307,6 +307,7 @@ const GeneralTable = () => {
                   <input
                     type="text"
                     placeholder="Search"
+                    onChange={(e) => handleSearch(e.target.value)}
                     className="border-none outline-none text-silverTextColor text-[16px]  leading-[28px] max-2xl:text-[12.8px]  max-2xl:leading-[22.4px]"
                   />
                 </div>
