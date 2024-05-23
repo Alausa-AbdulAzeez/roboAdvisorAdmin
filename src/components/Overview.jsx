@@ -33,6 +33,7 @@ const Overview = () => {
   const [errorLoadingOverviewData, setErrorLoadingOverviewData] =
     useState(false);
 
+  // Function to fetch overview dashboard data
   const fetchDasboardData = async () => {
     setLoadingOverviewData(true);
     setErrorLoadingOverviewData(false);
@@ -67,6 +68,7 @@ const Overview = () => {
     }
   };
 
+  // Use effect to cal the fetchDasboardData on initial render
   useEffect(() => {
     fetchDasboardData();
   }, []);
