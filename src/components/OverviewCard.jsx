@@ -17,6 +17,42 @@ const OverviewCard = ({
   index,
   loadingOverviewData,
 }) => {
+  /**
+   * Format a number with commas as thousand separators.
+   * @param {number} number - The number to format.
+   * @param {string} locale - The locale to use for formatting (default is 'en-US').
+   * @returns {string} The formatted number with commas.
+   */
+  function formatNumberWithCommas(number, locale = "en-US") {
+    if (typeof number === "number") {
+      return new Intl.NumberFormat(locale, {
+        style: "decimal",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(number);
+    } else {
+      return;
+    }
+  }
+
+  /**
+   * Formats a number as a percentage string with a "+" or "-" prefix.
+   *
+   * @param {number} value - The number to format.
+   * @returns {string} The formatted percentage string.
+   */
+  function formatPercentage(value) {
+    if (typeof value !== "number") {
+      return value;
+    }
+    const prefix = value >= 0 ? "+" : "-";
+    return `${prefix}${Math.abs(value)}%`;
+  }
+
+  // Define formatted variables
+  const formattedAmount = formatNumberWithCommas(amount);
+  const formattedPercentage = formatPercentage(percentText);
+
   return (
     <div
       className={`flex max-md:border-b-[0.05px] max-md:border-borderColor overflow-hidden h-full max-md:h-fit max-md:flex-none max-md:overflow-hidden flex-1 justify-between ${
@@ -47,7 +83,7 @@ const OverviewCard = ({
                 : "text-[24px] text-blackTextColor max-2xl:text-[19.2px] max-md:text-[20px]"
             }  leading-[40px] max-2xl:leading-[32px] `}
           >
-            {amount}
+            {`N${formattedAmount || ""}`}
           </div>
         )}
 
@@ -55,7 +91,10 @@ const OverviewCard = ({
           {loadingOverviewData ? (
             <Skeleton width={50} />
           ) : (
-            <PercentageIndicator type={percentType} text={percentText} />
+            <PercentageIndicator
+              type={percentType}
+              text={formattedPercentage}
+            />
           )}
 
           <div className="font-[400] text-[14px] max-2xl:text-[11.2px] max-md:text-[12px]  leading-[18px] max-2xl:leading-[14.4px] text-silverTextColor">

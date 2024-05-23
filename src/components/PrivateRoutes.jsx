@@ -42,7 +42,6 @@ const PrivateRoutes = () => {
       } catch (error) {
         // Handle errors, e.g., log to console or show error message to user
         console.log(error);
-        dispatch(loggedOut());
       }
 
       return () => {

@@ -24,7 +24,7 @@ const Overview = () => {
   const dispatch = useDispatch();
 
   // Overview data state
-  const [overvierData, setOverviewData] = useState();
+  const [overviewData, setOverviewData] = useState();
 
   // Overview data loading state
   const [loadingOverviewData, setLoadingOverviewData] = useState(false);
@@ -71,8 +71,19 @@ const Overview = () => {
     fetchDasboardData();
   }, []);
 
-  console.log(loadingOverviewData);
-  console.log(errorLoadingOverviewData);
+  const {
+    totalPortfolioValue = 0,
+    averagePortfolioValue = 0,
+    totalOnCourse = 0,
+    totalOffCourse = 0,
+  } = overviewData?.portfolioData?.currentStats ?? {};
+
+  const {
+    totalPortfolioValueChange = 0,
+    averagePortfolioValueChange = 0,
+    totalOnCourseChange = 0,
+    totalOffCourseChange = 0,
+  } = overviewData?.portfolioData?.changes ?? {};
 
   return (
     <div className="w-full">
@@ -103,13 +114,15 @@ const Overview = () => {
               <>
                 <OverviewCard
                   title={"Total Portfolio value"}
-                  amount={overvierData?.totalPortfolioValue}
+                  amount={totalPortfolioValue}
                   time={"This Week"}
                   img={sum}
                   cardName={"sum"}
                   mobileImg={sumMobile}
-                  percentText={"+12.9%"}
-                  percentType={"positive"}
+                  percentText={totalPortfolioValueChange}
+                  percentType={
+                    totalPortfolioValueChange >= 0 ? "positive" : "negative"
+                  }
                   imgPosition={"right"}
                   absolutePosition={"bottom"}
                   index={1}
@@ -117,12 +130,14 @@ const Overview = () => {
                 />
                 <OverviewCard
                   title={"Average Portfolio value"}
-                  amount={"N300,810,565.11"}
+                  amount={averagePortfolioValue}
                   time={"This Week"}
                   img={average}
                   mobileImg={averageMobile}
-                  percentText={"-9.9%"}
-                  percentType={"negative"}
+                  percentText={averagePortfolioValueChange}
+                  percentType={
+                    averagePortfolioValueChange >= 0 ? "positive" : "negative"
+                  }
                   imgPosition={"left"}
                   absolutePosition={"bottom"}
                   loadingOverviewData={loadingOverviewData}
@@ -132,24 +147,26 @@ const Overview = () => {
             <div className="w-[100%] h-[50%] max-md:h-fit flex  max-md:flex-col max-md:gap-[14px]">
               <OverviewCard
                 title={"On Course"}
-                amount={"N300,810,565.11"}
+                amount={totalOnCourse}
                 time={"This Week"}
                 img={onCourse}
                 mobileImg={onCourseMobile}
-                percentText={"-9.9%"}
-                percentType={"negative"}
+                percentText={totalOnCourseChange}
+                percentType={totalOnCourse >= 0 ? "positive" : "negative"}
                 imgPosition={"right"}
                 absolutePosition={"top"}
                 loadingOverviewData={loadingOverviewData}
               />
               <OverviewCard
                 title={"Off course"}
-                amount={"N300,810,565.11"}
+                amount={totalOffCourse}
                 time={"This Week"}
                 img={offCourse}
                 mobileImg={offCourseMobile}
-                percentText={"+12.9%"}
-                percentType={"positive"}
+                percentText={totalOffCourseChange}
+                percentType={
+                  averagePortfolioValueChange >= 0 ? "positive" : "negative"
+                }
                 imgPosition={"left"}
                 absolutePosition={"top"}
                 index={4}
