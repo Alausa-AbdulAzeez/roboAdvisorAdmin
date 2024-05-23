@@ -14,6 +14,9 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import { publicRequest } from "../utils/requestMethods";
 import { useDispatch } from "react-redux";
 import { formatDate } from "../utils/functions";
+import Skeleton from "react-loading-skeleton";
+import { bouncingCircles } from "../assets/images";
+import { ToastContainer, toast } from "react-toastify";
 
 const GeneralTable = () => {
   const [toggleSidebar] = useOutletContext();
@@ -113,14 +116,26 @@ const GeneralTable = () => {
         toast(
           "You're not authenticated. You'll be redirected to the login page.",
           {
-            autoClose: false,
-            isLoading: true,
+            autoClose: 2500,
             position: "bottom-right",
             type: "error",
           }
         );
         dispatch(loggedOut());
         navigate("/login");
+      } else {
+        toast(
+          `${
+            error?.details ||
+            error?.message ||
+            "Could not load users, please try again"
+          }`,
+          {
+            autoClose: 2500,
+            position: "bottom-right",
+            type: "error",
+          }
+        );
       }
     }
   };
@@ -407,7 +422,24 @@ const GeneralTable = () => {
                     );
                   })}
                 </tr>
-                {currentItems &&
+                {!loadingUsers && errorLoadingUsers && (
+                  <div className="absolute right-[0] top-[180px] w-full  h-full flex items-center justify-center">
+                    <div
+                      className="px-[16px] text-mainBlue hover:text-white hover:bg-mainBlue rounded-[8px] font-bold py-[8px] text-[16px] bg-[#fff] border border-mainBlue  text-center leading-[28px] cursor-pointer max-2xl:text-[12.8px] max-2xl:rounded-[6.4px]   max-2xl:leading-[22.4px] max-2xl:px-[12.8px] max-2xl:py-[6.4px]"
+                      onClick={fetchUsers}
+                    >
+                      Click to reload
+                    </div>
+                  </div>
+                )}
+                {loadingUsers && (
+                  <div className="absolute right-[0] top-[180px] w-full  h-full flex items-center justify-center">
+                    <img src={bouncingCircles} className="w-[150px] h-[50px]" />
+                  </div>
+                )}
+
+                {!errorLoadingUsers &&
+                  currentItems &&
                   currentItems.map((item, index) => {
                     const {
                       firstname,

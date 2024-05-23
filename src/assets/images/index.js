@@ -6,6 +6,7 @@ import sumMobile from "./sumMobile.svg";
 import signUp from "./signUp.svg";
 import blueBubble from "./blueBubble.svg";
 import bigBlueBubble from "./bigBlueBubble.svg";
+import bouncingCircles from "./bouncingCircles.svg";
 
 export {
   profilePicture,
@@ -16,4 +17,5 @@ export {
   signUp,
   blueBubble,
   bigBlueBubble,
+  bouncingCircles,
 };
